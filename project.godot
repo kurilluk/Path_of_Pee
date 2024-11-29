@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Path_of_Pee"
+run/main_scene="res://screens/main_screen.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/show_image=false
+config/icon="res://assets/textures/icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://_tests/": "orange",
+"res://assets/": "yellow",
+"res://autoload/": "green",
+"res://objects/": "yellow",
+"res://screens/": "orange"
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
