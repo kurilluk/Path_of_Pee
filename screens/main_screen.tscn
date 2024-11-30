@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=7 format=3 uid="uid://yecbj7sxsmhv"]
 
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
 [ext_resource type="PackedScene" uid="uid://tn7tnsad5fvd" path="res://_tests/denis/GameMap.tscn" id="2_6sbis"]
 [ext_resource type="PackedScene" uid="uid://wbpsudjihrlj" path="res://_examples/bomber_clone/Scenes/Level.tscn" id="2_8d4wl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8a47"]
+bg_color = Color(0.254902, 0.572549, 0.788235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te35g"]
+bg_color = Color(0.788235, 0.72549, 0.254902, 1)
 
 [node name="MainScreen" type="Node2D"]
 script = ExtResource("1_rnh5h")
@@ -45,7 +51,9 @@ text = "Hydration"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_x8a47")
 step = 1.0
+value = 50.0
 
 [node name="Blader" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -59,4 +67,36 @@ text = "Blader"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
+step = 1.0
+
+[node name="MoveEffort" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoveEffortLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/MoveEffort"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Move Effort"
+
+[node name="MoveEffortBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/MoveEffort"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+max_value = 1.0
+step = 1.0
+value = 1.0
+
+[node name="DayPart" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DayPartLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/DayPart"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Day Part"
+
+[node name="DayPartBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/DayPart"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+max_value = 4.0
 step = 1.0

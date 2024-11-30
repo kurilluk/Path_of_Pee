@@ -1,3 +1,4 @@
+@tool
 class_name Maze
 extends Node2D
 
@@ -10,8 +11,20 @@ extends Node2D
 
 
 # Randomizer & Dimension values ( make sure width & height is uneven)
-const initial_width = 31 
-const initial_height = 31
+@export var initial_width = 31: 
+	set(value):
+		initial_width = value
+		_generate_map()
+		#change_shadow_direction()
+		_place_player()
+		
+@export var initial_height = 31:
+	set(value):
+		initial_height = value
+		_generate_map()
+		#change_shadow_direction()
+		_place_player()
+		
 var map_width = initial_width
 var map_height = initial_height 
 var map_offset = 0 #Shifts map four rows down for UI
@@ -33,14 +46,14 @@ enum Direction { N, NE, E, SE, S, SW, W, NW }
 func _ready():
 	_generate_map()
 	change_shadow_direction()
-	_place_player();
+	_place_player()
 	
 func change_shadow_direction():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
 	_cast_shadows(directions[shadow_orientation])
 	shadow_orientation = (shadow_orientation + 1) % len(directions)
 
-func place_items(item_tile_id: int, count, only_in_shades: bool):
+func place_items(item_tile_id: int, count, only_in_shades: bool = false):
 	var offset_x = randi_range(0, map_width)
 	var offset_y = randi_range(0, map_height)
 	for x in range(map_width):
@@ -55,6 +68,8 @@ func place_items(item_tile_id: int, count, only_in_shades: bool):
 				
 			if count <= 0:
 				return;
+	
+			count -= 1
 			
 			itemsTiles.set_cell(coords, item_tile_id, Vector2i(0, 0), 0)
 			
