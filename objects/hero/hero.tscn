@@ -1,3 +1,19 @@
-[gd_scene format=3 uid="uid://dxhgc37amr6ku"]
+[gd_scene load_steps=3 format=3 uid="uid://dxhgc37amr6ku"]
+
+[ext_resource type="Texture2D" uid="uid://g8bjdc2iw0kh" path="res://assets/textures/kurilluk/meeple.svg" id="1_m324u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pbyr6"]
+radius = 32.0
 
 [node name="Hero" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_pbyr6")
+
+[node name="Meeple" type="Sprite2D" parent="."]
+texture = ExtResource("1_m324u")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false

@@ -21,6 +21,12 @@ config/icon="res://assets/textures/game-icons_net/spill.svg"
 Global="*res://_examples/bomber_clone/Scripts/Global.gd"
 GameManager="*res://autoload/game_manager.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
 [file_customization]
 
 folder_colors={
