@@ -16,4 +16,3 @@ shape = SubResource("CircleShape2D_pbyr6")
 texture = ExtResource("1_m324u")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-enabled = false

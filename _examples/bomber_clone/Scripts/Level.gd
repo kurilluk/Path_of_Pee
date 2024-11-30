@@ -68,7 +68,7 @@ func generate_breakables():
 		for y in range(1, map_height - 1):
 			var base_breakable_chance = 0.2  # default 20% chance
 			var level_chance_multiplier = 0.01  # increase by 1% per level
-			var breakable_spawn_chance = base_breakable_chance + (Global.current_level - 1) * level_chance_multiplier
+			var breakable_spawn_chance = base_breakable_chance + level_chance_multiplier
 			breakable_spawn_chance = min(breakable_spawn_chance, 0.5) #max chance of 50%
 			var current_cell = Vector2i(x, y  + map_offset)
 			var skip_current_cell = false

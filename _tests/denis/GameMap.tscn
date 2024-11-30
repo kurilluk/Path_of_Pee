@@ -25,7 +25,3 @@ tile_set = ExtResource("1_j5bv8")
 [node name="PlayerTiles" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAWABcADgAAAAAAAAA=")
 tile_set = ExtResource("1_j5bv8")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-zoom = Vector2(3, 3)
