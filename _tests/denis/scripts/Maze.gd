@@ -47,11 +47,17 @@ func _ready():
 	_generate_map()
 	change_shadow_direction()
 	_place_player()
+	place_items(15, 10)
 	
 func change_shadow_direction():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
-	_cast_shadows(directions[shadow_orientation])
+
+	var old_shadow_orientation = self.shadow_orientation
 	shadow_orientation = (shadow_orientation + 1) % len(directions)
+	
+	_carry_items_in_shadows(directions[old_shadow_orientation])
+	_carry_blocks_in_shadows(directions[old_shadow_orientation])
+	_cast_shadows(directions[shadow_orientation])
 
 func place_items(item_tile_id: int, count, only_in_shades: bool = false):
 	var offset_x = randi_range(0, map_width)
@@ -85,6 +91,11 @@ func remove_items(count, only_in_shades: bool):
 			var coords = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
 			if is_item(coords):
 				itemsTiles.erase_cell(coords)
+
+			if count <= 0:
+				return;
+	
+			count -= 1
 
 			# randomize next item placement
 			offset_x = randi_range(0, map_width)
@@ -134,6 +145,8 @@ func no_obstacles(coords: Vector2i):
 func is_obstacle(coords: Vector2i):
 	var obstacleCell = obstacleTiles.get_cell_tile_data(coords)
 	return obstacleCell != null;
+
+
 
 func is_item(coords: Vector2i):
 	var itemCell = itemsTiles.get_cell_tile_data(coords)
@@ -193,6 +206,7 @@ func _generate_breakables():
 			if no_obstacles(current_cell):
 				if rng.randf() < breakable_spawn_chance: 
 					obstacleTiles.set_cell(current_cell, BREAKABLE_TILE_ID, Vector2i(0, 0), 0)
+					return
 
 func _generate_background():
 	#--------------------------------- BACKGROUND ------------------------------
@@ -214,8 +228,8 @@ func _cast_shadows(shadow_direction: Direction):
 			for cell_pattern in ShadowCasting.PATTERNS[shadow_direction]:
 				var cast_cell = Vector2i(x, y) + cell_pattern[0]
 				var cast_cell_tile = cell_pattern[1]
-				if !no_obstacles(cast_cell):
-					continue;
+				#if !no_obstacles(cast_cell):
+				#	continue;
 				var cell_tile_id = shadowsTiles.get_cell_source_id(cast_cell)
 				
 				# fill tile if it is intersection of two diagonal shadows
@@ -242,5 +256,67 @@ func _get_shadow_cast_cell(shadow_direction: Direction) -> Vector2i:
 			return Vector2i(-1, 0)
 		Direction.NW:
 			return Vector2i(-1, -1)
+		_: 
+			return Vector2i(0, 0)
+
+func _carry_items_in_shadows(from_shadow_direction: Direction):
+	const carried_coords = [];
+	for x in range(map_width):
+		for y in range(map_height):
+			var cell_coord = Vector2i(x, y);
+			if !is_item(cell_coord) || !in_shade(cell_coord):
+				continue
+				
+			if (carried_coords.has(cell_coord)):
+				continue
+			
+			var target_coord = cell_coord + _get_shadow_move_target_cell(from_shadow_direction)
+			if is_item(target_coord) || is_obstacle(target_coord) || is_player(target_coord):
+				continue
+			
+			var item_tile_id = itemsTiles.get_cell_source_id(cell_coord)
+			itemsTiles.erase_cell(cell_coord)
+			itemsTiles.set_cell(target_coord, item_tile_id, Vector2i(0, 0), 0)
+			carried_coords.push_back(target_coord)
+			
+func _carry_blocks_in_shadows(from_shadow_direction: Direction):
+	const carried_coords = [];
+	for x in range(map_width):
+		for y in range(map_height):
+			var cell_coord = Vector2i(x, y);
+			var obstacle_tile_id = obstacleTiles.get_cell_source_id(cell_coord)
+			if obstacle_tile_id != BREAKABLE_TILE_ID:
+				continue
+				
+			if (carried_coords.has(cell_coord)):
+				continue
+			
+			var target_coord = cell_coord + _get_shadow_move_target_cell(from_shadow_direction)
+			if is_item(target_coord) || is_obstacle(target_coord) || is_player(target_coord):
+				continue
+			
+			obstacleTiles.erase_cell(cell_coord)
+			obstacleTiles.set_cell(target_coord, obstacle_tile_id, Vector2i(0, 0), 0)
+			carried_coords.push_back(target_coord)
+
+
+func _get_shadow_move_target_cell(shadow_direction: Direction) -> Vector2i:
+	match shadow_direction:
+		Direction.N:
+			return Vector2i(1, 0)
+		Direction.NE:
+			return Vector2i(0, -1)
+		Direction.E:
+			return Vector2i(0, -1)
+		Direction.SE:
+			return Vector2i(-1, 0)
+		Direction.S:
+			return Vector2i(-1, 0)
+		Direction.SW:
+			return Vector2i(0, 1)
+		Direction.W:
+			return Vector2i(0, 1)
+		Direction.NW:
+			return Vector2i(1, 0)
 		_: 
 			return Vector2i(0, 0)
