@@ -3,13 +3,14 @@ extends Node2D
 # Node references
 @onready var groundTiles: TileMapLayer = $GroundTiles
 @onready var obstacleTiles: TileMapLayer = $ObstacleTiles
-@onready var itemsTiles: TileMapLayer = $ItemsTiles
-@onready var shadowsTiles: TileMapLayer = $ShadowsTiles
+@onready var itemsTiles: TileMapLayer = $ItemTiles
+@onready var shadowsTiles: TileMapLayer = $ShadowTiles
+@onready var playerTiles: TileMapLayer = $PlayerTiles
 
 
 # Randomizer & Dimension values ( make sure width & height is uneven)
-const initial_width = 63 
-const initial_height = 63
+const initial_width = 31 
+const initial_height = 31
 var map_width = initial_width
 var map_height = initial_height 
 var map_offset = 4 #Shifts map four rows down for UI
@@ -19,18 +20,15 @@ var rng = RandomNumberGenerator.new()
 const BACKGROUND_TILE_ID = 0
 const BREAKABLE_TILE_ID = 1
 const UNREAKABLE_TILE_ID = 2
-const SHADOW_FILL_TILE_ID = 5
-const SHADOW_NE_TILE_ID = 6
-const SHADOW_NW_TILE_ID = 7
-const SHADOW_SE_TILE_ID = 8
-const SHADOW_SW_TILE_ID = 9
+
+const PLAYER_TILE_ID = 14
 
 # Shadow direction, N - North/Up, E - East/Right etc
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
 func _ready():
 	generate_map()
-	execute_every_second()
+	#execute_every_second()
 	
 func execute_every_second():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
@@ -45,7 +43,7 @@ func generate_map():
 	generate_unbreakables()
 	generate_breakables()
 	generate_background()
-	cast_shadows(Direction.SE);
+	cast_shadows(Direction.SE)
 
 # Checks if tiles are empty or not
 func no_obstacles(coords: Vector2i):
@@ -115,16 +113,24 @@ func generate_background():
 func cast_shadows(shadow_direction: Direction):
 	shadowsTiles.clear();
 	
-	var yRange = range(map_height) if (shadow_direction == Direction.S || shadow_direction == Direction.SE  || shadow_direction == Direction.SW) else range(map_height - 1, -1, -1)
-	var xRange = range(map_width) if (shadow_direction == Direction.W || shadow_direction == Direction.SW || shadow_direction == Direction.NW) else range(map_width - 1, -1, -1);
+	var yRange = range(map_height - 1, -1, -1) if (shadow_direction == Direction.S || shadow_direction == Direction.SE  || shadow_direction == Direction.SW) else range(map_height)
+	var xRange = range(map_width - 1, -1, -1) if (shadow_direction == Direction.W || shadow_direction == Direction.SW || shadow_direction == Direction.NW) else range(map_width);
 	for y in yRange:
 		for x in xRange:
 			if no_obstacles(Vector2i(x, y)):
-				continue			
-			var cast_cell = Vector2i(x, y) + get_shadow_cast_cell(shadow_direction);
-			if !no_obstacles(cast_cell):
-				continue;
-			shadowsTiles.set_cell(cast_cell, SHADOW_FILL_TILE_ID, Vector2i(0, 0), 0)
+				continue
+			for cell_pattern in ShadowCasting.PATTERNS[shadow_direction]:
+				var cast_cell = Vector2i(x, y) + cell_pattern[0]
+				var cast_cell_tile = cell_pattern[1]
+				if !no_obstacles(cast_cell):
+					continue;
+				var cell_tile_id = shadowsTiles.get_cell_source_id(cast_cell)
+				
+				# fill tile if it is intersection of two diagonal shadows
+				if (cell_tile_id != -1 && cast_cell_tile != cell_tile_id):
+					cast_cell_tile = ShadowCasting.SHADOW_FILL_TILE_ID
+					
+				shadowsTiles.set_cell(cast_cell, cast_cell_tile, Vector2i(0, 0), 0)
 			
 
 func get_shadow_cast_cell(shadow_direction: Direction) -> Vector2i:
