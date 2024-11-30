@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://xuj5k42utlb4" path="res://_tests/denis/assets/sprites/wall_0.png" id="2_f5ey4"]
 [ext_resource type="Texture2D" uid="uid://dh3or7q204srm" path="res://_tests/denis/assets/sprites/breakable_0.png" id="3_bud5n"]
 [ext_resource type="Texture2D" uid="uid://dvu3htuxhd0ww" path="res://_tests/denis/assets/sprites/player.png" id="3_nhg01"]
-[ext_resource type="Texture2D" uid="uid://dk4emxgcjkqu0" path="res://assets/textures/kurilluk/meeple_slot.svg" id="4_aw4jl"]
 [ext_resource type="Texture2D" uid="uid://6v1hfl62ysua" path="res://_tests/denis/assets/sprites/shadow_fill.png" id="4_bih47"]
+[ext_resource type="Texture2D" uid="uid://k4gba8ndwwc0" path="res://assets/textures/kurilluk/meeple_slot_16b.svg" id="4_riymk"]
 [ext_resource type="Texture2D" uid="uid://ddu067ba7b361" path="res://_tests/denis/assets/sprites/shadow_ne.png" id="5_w82d3"]
 [ext_resource type="Texture2D" uid="uid://bmqtg8dykuvuo" path="res://_tests/denis/assets/sprites/shadow_nw.png" id="6_2kb6y"]
 [ext_resource type="Texture2D" uid="uid://c0ysyv2eyor37" path="res://_tests/denis/assets/sprites/shadow_se.png" id="7_7cbub"]
@@ -30,7 +30,7 @@ texture = ExtResource("3_nhg01")
 1:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vj5xa"]
-texture = ExtResource("4_aw4jl")
+texture = ExtResource("4_riymk")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0

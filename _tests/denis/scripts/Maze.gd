@@ -1,4 +1,4 @@
-@tool
+#@tool
 class_name Maze
 extends Node2D
 
@@ -11,19 +11,19 @@ extends Node2D
 
 
 # Randomizer & Dimension values ( make sure width & height is uneven)
-@export var initial_width = 31: 
-	set(value):
-		initial_width = value
-		_generate_map()
+@export var initial_width = 11 
+	#set(value):
+		#initial_width = value
+		#_generate_map()
 		#change_shadow_direction()
-		_place_player()
+		#_place_player()
 		
-@export var initial_height = 31:
-	set(value):
-		initial_height = value
-		_generate_map()
+@export var initial_height = 11
+	#set(value):
+		#initial_height = value
+		#_generate_map()
 		#change_shadow_direction()
-		_place_player()
+		#_place_player()
 		
 var map_width = initial_width
 var map_height = initial_height 
@@ -55,7 +55,7 @@ func change_shadow_direction():
 	var old_shadow_orientation = self.shadow_orientation
 	shadow_orientation = (shadow_orientation + 1) % len(directions)
 	
-	_carry_items_in_shadows(directions[old_shadow_orientation])
+	#_carry_items_in_shadows(directions[old_shadow_orientation])
 	_carry_blocks_in_shadows(directions[old_shadow_orientation])
 	_cast_shadows(directions[shadow_orientation])
 
@@ -143,6 +143,8 @@ func no_obstacles(coords: Vector2i):
 	return !is_obstacle(coords)
 	
 func is_obstacle(coords: Vector2i):
+	#if not obstacleCell:
+		#return
 	var obstacleCell = obstacleTiles.get_cell_tile_data(coords)
 	return obstacleCell != null;
 
@@ -158,6 +160,8 @@ func is_player(coords: Vector2i):
 func _generate_unbreakables():
 	#--------------------------------- UBREAKABLES ------------------------------
 	# Generate unbreakable walls at the borders on Layer 2
+	if not obstacleTiles:
+		return
 	for x in range(map_width):
 		for y in range(map_height):
 			if x == 0 or x == map_width - 1 or y == 0 or y == map_height - 1:

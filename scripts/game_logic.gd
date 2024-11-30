@@ -19,7 +19,7 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	map.place_items(15,8)
+	map.place_items(15,3)
 
 func _input(event: InputEvent) -> void:
 	# Reset the direction
@@ -49,9 +49,16 @@ func _input(event: InputEvent) -> void:
 		if effort >= move_effort_bar.max_value:
 			effort = 0
 			direction = direction.normalized()
-			map.move_player(direction)
+			var resunt = map.move_player(direction)
+			update_player(resunt)
 			progress_day()
 	hero.position += direction * speed
+
+func update_player(result : PlayerMoveResult):
+	if result.success:
+		if result.item_tile_id == 15:
+			drink()
+			map.remove_item(result.new_coords)
 
 #func call_maze_hero(vector :Vector2):
 	#map.move_player(vector)
