@@ -1,3 +1,58 @@
-[gd_scene format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=4 format=3 uid="uid://yecbj7sxsmhv"]
+
+[ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
+[ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
+[ext_resource type="PackedScene" uid="uid://wbpsudjihrlj" path="res://_examples/bomber_clone/Scenes/Level.tscn" id="2_8d4wl"]
 
 [node name="MainScreen" type="Node2D"]
+script = ExtResource("1_rnh5h")
+
+[node name="Level" parent="." instance=ExtResource("2_8d4wl")]
+
+[node name="Hero" parent="." instance=ExtResource("1_au7jh")]
+unique_name_in_owner = true
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Hydration" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HydrationLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Hydration"
+
+[node name="HydrationBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+step = 1.0
+
+[node name="Blader" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BladerLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Blader"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Blader"
+
+[node name="BladerBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Blader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+step = 1.0
