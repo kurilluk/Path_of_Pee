@@ -1,0 +1,73 @@
+[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://xom4fx7km74v"]
+
+[ext_resource type="Texture2D" uid="uid://ch4uj4dhr58ap" path="res://_tests/denis/assets/sprites/ground_0.png" id="1_u0ljg"]
+[ext_resource type="Texture2D" uid="uid://xuj5k42utlb4" path="res://_tests/denis/assets/sprites/wall_0.png" id="2_f5ey4"]
+[ext_resource type="Texture2D" uid="uid://dh3or7q204srm" path="res://_tests/denis/assets/sprites/breakable_0.png" id="3_bud5n"]
+[ext_resource type="Texture2D" uid="uid://6v1hfl62ysua" path="res://_tests/denis/assets/sprites/shadow_fill.png" id="4_bih47"]
+[ext_resource type="Texture2D" uid="uid://ddu067ba7b361" path="res://_tests/denis/assets/sprites/shadow_ne.png" id="5_w82d3"]
+[ext_resource type="Texture2D" uid="uid://bmqtg8dykuvuo" path="res://_tests/denis/assets/sprites/shadow_nw.png" id="6_2kb6y"]
+[ext_resource type="Texture2D" uid="uid://c0ysyv2eyor37" path="res://_tests/denis/assets/sprites/shadow_se.png" id="7_7cbub"]
+[ext_resource type="Texture2D" uid="uid://d3ifuwmbldi4n" path="res://_tests/denis/assets/sprites/shadow_sw.png" id="8_h4mqk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2u8qd"]
+texture = ExtResource("1_u0ljg")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u8mn5"]
+texture = ExtResource("2_f5ey4")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7rwbf"]
+texture = ExtResource("3_bud5n")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_662x3"]
+texture = ExtResource("4_bih47")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2rb80"]
+texture = ExtResource("5_w82d3")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wscss"]
+texture = ExtResource("6_2kb6y")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qiall"]
+texture = ExtResource("7_7cbub")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qw27l"]
+texture = ExtResource("8_h4mqk")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_2u8qd")
+sources/1 = SubResource("TileSetAtlasSource_u8mn5")
+sources/2 = SubResource("TileSetAtlasSource_7rwbf")
+sources/5 = SubResource("TileSetAtlasSource_662x3")
+sources/6 = SubResource("TileSetAtlasSource_2rb80")
+sources/7 = SubResource("TileSetAtlasSource_wscss")
+sources/8 = SubResource("TileSetAtlasSource_qiall")
+sources/9 = SubResource("TileSetAtlasSource_qw27l")

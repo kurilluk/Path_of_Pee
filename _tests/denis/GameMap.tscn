@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://tn7tnsad5fvd"]
+
+[ext_resource type="Script" path="res://_tests/denis/scripts/MapSeeding.gd" id="1_fot5j"]
+[ext_resource type="TileSet" uid="uid://xom4fx7km74v" path="res://_tests/denis/assets/Map_TileSet.tres" id="1_j5bv8"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_fot5j")
+
+[node name="GroundTiles" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_j5bv8")
+
+[node name="ObstacleTiles" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_j5bv8")
+
+[node name="ItemsTiles" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_j5bv8")
+
+[node name="ShadowsTiles" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_j5bv8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(3, 3)
