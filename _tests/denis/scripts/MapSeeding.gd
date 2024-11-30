@@ -14,7 +14,7 @@ const initial_width = 31
 const initial_height = 31
 var map_width = initial_width
 var map_height = initial_height 
-var map_offset = 4 #Shifts map four rows down for UI
+var map_offset = 0 #Shifts map four rows down for UI
 var rng = RandomNumberGenerator.new()
 var player_coords: Vector2i;
 
@@ -33,43 +33,100 @@ enum Direction { N, NE, E, SE, S, SW, W, NW }
 func _ready():
 	_generate_map()
 	change_shadow_direction()
-	_place_player(Vector2i(initial_width / 2, initial_height / 2));
+	_place_player();
 	
 func change_shadow_direction():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
 	_cast_shadows(directions[shadow_orientation])
 	shadow_orientation = (shadow_orientation + 1) % len(directions)
-	
+
+func place_items(item_tile_id: int, count, only_in_shades: bool):
+	var offset_x = randi_range(0, map_width)
+	var offset_y = randi_range(0, map_height)
+	for x in range(map_width):
+		for y in range(map_height):
+			var coords = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
+			
+			if (is_obstacle(coords) || is_player(coords) || is_item(coords)):
+				continue;
+				
+			if only_in_shades && !in_shade(coords):
+				continue
+				
+			if count <= 0:
+				return;
+			
+			itemsTiles.set_cell(coords, item_tile_id, Vector2i(0, 0), 0)
+			
+			# randomize next item placement
+			offset_x = randi_range(0, map_width)
+			offset_y = randi_range(0, map_height)
+
+func remove_items(count, only_in_shades: bool):
+	var offset_x = randi_range(0, map_width)
+	var offset_y = randi_range(0, map_height)
+	for x in range(map_width):
+		for y in range(map_height):
+			var coords = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
+			if is_item(coords):
+				itemsTiles.erase_cell(coords)
+
+			# randomize next item placement
+			offset_x = randi_range(0, map_width)
+			offset_y = randi_range(0, map_height)
+			
+func remove_item(coords: Vector2i):
+	itemsTiles.erase_cell(coords)
+			
 # ---------------- Map Generation -------------------------------------
 func _generate_map():
 	_generate_unbreakables()
 	_generate_breakables()
 	_generate_background()
-	#_cast_shadows(Direction.SW)
 
-func move_player(relative_coords: Vector2i):
+func move_player(relative_coords: Vector2i) -> PlayerMoveResult:
 	var new_player_coords = player_coords + relative_coords;
 	if (!no_obstacles(new_player_coords)):
-		return false;
+		return PlayerMoveResult.new(false, player_coords);
 	
 	playerTiles.clear();
 	playerTiles.set_cell(new_player_coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
 	player_coords = new_player_coords;
-	return true;
+	
+	var result = PlayerMoveResult.new(true, new_player_coords);
+	result.item_tile_id = itemsTiles.get_cell_source_id(new_player_coords)
+	return result;
 
-func _place_player(coords: Vector2i):
-	while (!no_obstacles(coords)):
-		coords += Vector2i(randi() % 2 - 1, randi() % 2 - 1)
+func _place_player():
+	var coords = Vector2i()
+	while (true):
+		coords = Vector2i(randi_range(0, map_width - 1), randi_range(0, map_height - 1))
+		if no_obstacles(coords):
+			break
+	
 	playerTiles.clear();
 	playerTiles.set_cell(coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
 	player_coords = coords;
 
-
+func in_shade(coords: Vector2i): 
+	var cell_tile_id = shadowsTiles.get_cell_source_id(coords)
+	return cell_tile_id == ShadowCasting.SHADOW_FILL_TILE_ID
+	
 # Checks if tiles are empty or not
 func no_obstacles(coords: Vector2i):
-	var obstacleCell = obstacleTiles.get_cell_tile_data(coords)
-	return obstacleCell == null;
+	return !is_obstacle(coords)
 	
+func is_obstacle(coords: Vector2i):
+	var obstacleCell = obstacleTiles.get_cell_tile_data(coords)
+	return obstacleCell != null;
+
+func is_item(coords: Vector2i):
+	var itemCell = itemsTiles.get_cell_tile_data(coords)
+	return itemCell != null;
+
+func is_player(coords: Vector2i):
+	return player_coords == coords;
+
 func _generate_unbreakables():
 	#--------------------------------- UBREAKABLES ------------------------------
 	# Generate unbreakable walls at the borders on Layer 2
