@@ -27,30 +27,37 @@ const PLAYER_TILE_ID = 14
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
 func _ready():
-	generate_map()
-	#execute_every_second()
+	_generate_map()
+	_execute_every_second()
+	move_player(Vector2i(initial_width / 2, initial_height / 2));
 	
-func execute_every_second():
+func _execute_every_second():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
 	var index = 0;
 	while true:
-		cast_shadows(directions[index])
+		_cast_shadows(directions[index])
 		index = (index + 1) % len(directions)
 		await get_tree().create_timer(1.0).timeout
 	
 # ---------------- Map Generation -------------------------------------
-func generate_map():
-	generate_unbreakables()
-	generate_breakables()
-	generate_background()
-	cast_shadows(Direction.SE)
+func _generate_map():
+	_generate_unbreakables()
+	#_generate_breakables()
+	_generate_background()
+	#_cast_shadows(Direction.SW)
+
+func move_player(coords: Vector2i):
+	while (!no_obstacles(coords)):
+		coords += Vector2i(randi() % 2 - 1, randi() % 2 - 1)
+	playerTiles.clear();
+	playerTiles.set_cell(coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
 
 # Checks if tiles are empty or not
 func no_obstacles(coords: Vector2i):
 	var obstacleCell = obstacleTiles.get_cell_tile_data(coords)
 	return obstacleCell == null;
 	
-func generate_unbreakables():
+func _generate_unbreakables():
 	#--------------------------------- UBREAKABLES ------------------------------
 	# Generate unbreakable walls at the borders on Layer 2
 	for x in range(map_width):
@@ -63,7 +70,7 @@ func generate_unbreakables():
 			if x % 2 == 0 and y % 2 == 0: # Check if row and column are even
 				obstacleTiles.set_cell(Vector2i(x, y + map_offset), UNREAKABLE_TILE_ID, Vector2i(0, 0), 0)
 	
-func generate_breakables():
+func _generate_breakables():
 	#--------------------------------- BREAKABLES ------------------------------
 	# Define an array for the corners and their safe zones
 	var spawn_zones = [
@@ -102,7 +109,7 @@ func generate_breakables():
 				if rng.randf() < breakable_spawn_chance: 
 					obstacleTiles.set_cell(current_cell, BREAKABLE_TILE_ID, Vector2i(0, 0), 0)
 
-func generate_background():
+func _generate_background():
 	#--------------------------------- BACKGROUND ------------------------------
 	for x in range(map_width):
 		for y in range(map_height):
@@ -110,7 +117,7 @@ func generate_background():
 			if no_obstacles( cell_coords) and no_obstacles(cell_coords):
 				groundTiles.set_cell( cell_coords, BACKGROUND_TILE_ID, Vector2i(0, 0), 0)
 
-func cast_shadows(shadow_direction: Direction):
+func _cast_shadows(shadow_direction: Direction):
 	shadowsTiles.clear();
 	
 	var yRange = range(map_height - 1, -1, -1) if (shadow_direction == Direction.S || shadow_direction == Direction.SE  || shadow_direction == Direction.SW) else range(map_height)
@@ -132,8 +139,7 @@ func cast_shadows(shadow_direction: Direction):
 					
 				shadowsTiles.set_cell(cast_cell, cast_cell_tile, Vector2i(0, 0), 0)
 			
-
-func get_shadow_cast_cell(shadow_direction: Direction) -> Vector2i:
+func _get_shadow_cast_cell(shadow_direction: Direction) -> Vector2i:
 	match shadow_direction:
 		Direction.N:
 			return Vector2i(0, -1)

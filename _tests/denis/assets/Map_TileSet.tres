@@ -1,9 +1,10 @@
-[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://xom4fx7km74v"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://xom4fx7km74v"]
 
 [ext_resource type="Texture2D" uid="uid://ch4uj4dhr58ap" path="res://_tests/denis/assets/sprites/ground_0.png" id="1_u0ljg"]
 [ext_resource type="Texture2D" uid="uid://xuj5k42utlb4" path="res://_tests/denis/assets/sprites/wall_0.png" id="2_f5ey4"]
 [ext_resource type="Texture2D" uid="uid://dh3or7q204srm" path="res://_tests/denis/assets/sprites/breakable_0.png" id="3_bud5n"]
 [ext_resource type="Texture2D" uid="uid://dvu3htuxhd0ww" path="res://_tests/denis/assets/sprites/player.png" id="3_nhg01"]
+[ext_resource type="Texture2D" uid="uid://dk4emxgcjkqu0" path="res://assets/textures/kurilluk/meeple_slot.svg" id="4_aw4jl"]
 [ext_resource type="Texture2D" uid="uid://6v1hfl62ysua" path="res://_tests/denis/assets/sprites/shadow_fill.png" id="4_bih47"]
 [ext_resource type="Texture2D" uid="uid://ddu067ba7b361" path="res://_tests/denis/assets/sprites/shadow_ne.png" id="5_w82d3"]
 [ext_resource type="Texture2D" uid="uid://bmqtg8dykuvuo" path="res://_tests/denis/assets/sprites/shadow_nw.png" id="6_2kb6y"]
@@ -27,6 +28,26 @@ texture = ExtResource("3_nhg01")
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vj5xa"]
+texture = ExtResource("4_aw4jl")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7rwbf"]
 texture = ExtResource("3_bud5n")
@@ -80,3 +101,4 @@ sources/9 = SubResource("TileSetAtlasSource_vyki6")
 sources/7 = SubResource("TileSetAtlasSource_m5ou3")
 sources/8 = SubResource("TileSetAtlasSource_28lwt")
 sources/14 = SubResource("TileSetAtlasSource_ncvbs")
+sources/15 = SubResource("TileSetAtlasSource_vj5xa")
