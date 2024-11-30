@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var hero: Node2D = %Hero
+@onready var map: Maze = $Map
 
 # Speed of the Node2D
 const  speed: float = 64.0
@@ -28,4 +29,8 @@ func _input(event: InputEvent) -> void:
 	# Normalize direction to prevent faster diagonal movement
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
+		call_maze_hero(direction)
 		hero.position += direction * speed
+
+func call_maze_hero(vector :Vector2):
+	map.move_player(vector)

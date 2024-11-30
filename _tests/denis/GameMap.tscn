@@ -16,6 +16,7 @@ tile_set = ExtResource("1_j5bv8")
 tile_set = ExtResource("1_j5bv8")
 
 [node name="ShadowTiles" type="TileMapLayer" parent="."]
+modulate = Color(0.415686, 0.4, 0.2, 0.14902)
 tile_set = ExtResource("1_j5bv8")
 
 [node name="PlayerTiles" type="TileMapLayer" parent="."]

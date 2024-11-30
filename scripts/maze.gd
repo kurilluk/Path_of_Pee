@@ -1,7 +1,7 @@
-class_name Maze
+class_name Maze_old
 
 extends Object
-
+\
 var width: int
 var height: int
 var grid: Array = [] # 2D array to hold MazeNodes

@@ -1,3 +1,4 @@
+class_name Maze
 extends Node2D
 
 # Node references
@@ -24,6 +25,8 @@ const UNREAKABLE_TILE_ID = 2
 
 const PLAYER_TILE_ID = 14
 
+var shadow_orientation = 0
+
 # Shadow direction, N - North/Up, E - East/Right etc
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
@@ -34,16 +37,17 @@ func _ready():
 	
 func _execute_every_second():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
-	var index = 0;
-	while true:
-		_cast_shadows(directions[index])
-		index = (index + 1) % len(directions)
-		await get_tree().create_timer(1.0).timeout
+	#var index = 0;
+	#shadow_orientation += 1
+	#while true:
+	_cast_shadows(directions[shadow_orientation])
+	shadow_orientation = (shadow_orientation + 1) % len(directions)
+		#await get_tree().create_timer(1.0).timeout
 	
 # ---------------- Map Generation -------------------------------------
 func _generate_map():
 	_generate_unbreakables()
-	#_generate_breakables()
+	_generate_breakables()
 	_generate_background()
 	#_cast_shadows(Direction.SW)
 
@@ -55,6 +59,7 @@ func move_player(relative_coords: Vector2i):
 	playerTiles.clear();
 	playerTiles.set_cell(new_player_coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
 	player_coords = new_player_coords;
+	_execute_every_second()
 	return true;
 
 func _place_player(coords: Vector2i):
@@ -63,6 +68,7 @@ func _place_player(coords: Vector2i):
 	playerTiles.clear();
 	playerTiles.set_cell(coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
 	player_coords = coords;
+
 
 # Checks if tiles are empty or not
 func no_obstacles(coords: Vector2i):
