@@ -14,11 +14,12 @@ config/name="Path_of_Pee"
 run/main_scene="res://screens/main_screen.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/show_image=false
-config/icon="res://assets/textures/icon.svg"
+config/icon="res://assets/textures/game-icons_net/spill.svg"
 
 [autoload]
 
 Global="*res://_examples/bomber_clone/Scripts/Global.gd"
+GameManager="*res://autoload/game_manager.gd"
 
 [file_customization]
 
