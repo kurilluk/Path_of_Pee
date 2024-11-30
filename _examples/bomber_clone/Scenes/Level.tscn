@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://wbpsudjihrlj"]
+
+[ext_resource type="Script" path="res://_examples/bomber_clone/Scripts/Level.gd" id="1_q7ly6"]
+[ext_resource type="TileSet" uid="uid://dx4yvmctebweo" path="res://_examples/bomber_clone/Resources/Level_TileSet.tres" id="2_fgfue"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_q7ly6")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_fgfue")
+format = 2
+layer_0/name = "BACKGROUND_TILE"
+layer_1/name = "BREAKABLE_TILE"
+layer_1/z_index = 1
+layer_2/name = "UNBREAKABLE_TILE"
+layer_2/z_index = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(3, 3)
