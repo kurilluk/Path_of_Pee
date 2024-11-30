@@ -32,17 +32,13 @@ enum Direction { N, NE, E, SE, S, SW, W, NW }
 
 func _ready():
 	_generate_map()
-	_execute_every_second()
+	change_shadow_direction()
 	_place_player(Vector2i(initial_width / 2, initial_height / 2));
 	
-func _execute_every_second():
+func change_shadow_direction():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
-	#var index = 0;
-	#shadow_orientation += 1
-	#while true:
 	_cast_shadows(directions[shadow_orientation])
 	shadow_orientation = (shadow_orientation + 1) % len(directions)
-		#await get_tree().create_timer(1.0).timeout
 	
 # ---------------- Map Generation -------------------------------------
 func _generate_map():
@@ -59,7 +55,6 @@ func move_player(relative_coords: Vector2i):
 	playerTiles.clear();
 	playerTiles.set_cell(new_player_coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
 	player_coords = new_player_coords;
-	_execute_every_second()
 	return true;
 
 func _place_player(coords: Vector2i):
