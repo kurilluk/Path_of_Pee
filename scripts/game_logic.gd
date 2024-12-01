@@ -84,9 +84,15 @@ func progress_day():
 		map.change_shadow_direction() 
 
 func generate_level_map(level: int = 1) -> Vector2:
-	map.generate_map(11, 11)
-	map.place_moveable_blocks(1)
-	map.place_items(15,5)
+	match level:
+		1: # preset for level 1
+			map.generate_map(11, 11)
+			map.place_moveable_blocks(3)
+			map.place_items(15,5)
+		_: # preset for level 2
+			map.generate_map(5, 5)
+			map.place_moveable_blocks(1)
+
 	return map.place_player();
 
 func _on_Start_button_pressed() -> void:

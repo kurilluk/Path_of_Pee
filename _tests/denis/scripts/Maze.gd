@@ -304,7 +304,7 @@ func _carry_blocks_in_shadows(move_chance: float, from_shadow_direction: Directi
 			var target_coord_str = str(target_coord.x) + ":" + str(target_coord.y)
 			carried_coords.push_back(target_coord_str)
 			
-			print("moved from x:" + str(cell_coord.x) + " y: " + str(cell_coord.y) + " to x:" + str(target_coord.x) + " to y:" + str(target_coord.y) + " Direction " + str(from_shadow_direction))
+#			print("moved from x:" + str(cell_coord.x) + " y: " + str(cell_coord.y) + " to x:" + str(target_coord.x) + " to y:" + str(target_coord.y) + " Direction " + str(from_shadow_direction))
 
 func _get_shadow_move_target_cell(shadow_direction: Direction) -> Vector2i:
 	match shadow_direction:
