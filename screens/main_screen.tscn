@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
 [ext_resource type="PackedScene" uid="uid://tn7tnsad5fvd" path="res://_tests/denis/GameMap.tscn" id="2_6sbis"]
-[ext_resource type="Texture2D" uid="uid://c4i23c47onmk5" path="res://assets/textures/kurilluk/background.png" id="2_hncko"]
+[ext_resource type="Texture2D" uid="uid://cg0e8oiyogxbo" path="res://assets/textures/kurilluk/onboarding.png" id="2_alql1"]
 [ext_resource type="Script" path="res://scripts/pickup_animations.gd" id="4_i4ans"]
 [ext_resource type="Script" path="res://scripts/bladder_bar.gd" id="5_ptx6u"]
 [ext_resource type="Texture2D" uid="uid://c617l6xa8b5x1" path="res://assets/textures/kurilluk/drink_blue.svg" id="5_rxqlc"]
@@ -36,9 +36,10 @@ bg_color = Color(0, 0, 0, 1)
 [node name="MainScreen" type="Node2D"]
 script = ExtResource("1_rnh5h")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="onboarding" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(-1920, 0)
-texture = ExtResource("2_hncko")
+texture = ExtResource("2_alql1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false

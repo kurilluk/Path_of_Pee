@@ -182,6 +182,7 @@ func _on_Start_button_pressed() -> void:
 	score_value.text = "0"
 	var tween = create_tween()
 	tween.tween_property(ui_game,"modulate:a",1.0,2)
+	tween.connect("finished", on_UI_loaded)
 	get_tree().paused = false
 	actual_level = 1
 	level_value.text = str(actual_level)
@@ -191,6 +192,11 @@ func _on_Start_button_pressed() -> void:
 	SoundManager.play_button_click_sound(SFX)
 	no_inputs = false
 	SoundManager.start_ambient_loop(Music)
+
+@onready var onboarding: Sprite2D = %onboarding
+
+func on_UI_loaded():
+	onboarding.visible = false
 
 func play_music(value: float):
 	if value > 80:
