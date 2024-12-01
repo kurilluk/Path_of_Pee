@@ -135,7 +135,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bqo7i")
 }],
-"loop": true,
+"loop": false,
 "name": &"game_over",
 "speed": 20.0
 }]
@@ -158,5 +158,3 @@ texture = ExtResource("2_55uby")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p4c6w")
 animation = &"game_over"
-frame = 19
-frame_progress = 1.0

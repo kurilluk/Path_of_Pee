@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=10 format=3 uid="uid://yecbj7sxsmhv"]
 
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
 [ext_resource type="PackedScene" uid="uid://tn7tnsad5fvd" path="res://_tests/denis/GameMap.tscn" id="2_6sbis"]
 [ext_resource type="Script" path="res://scripts/pickup_animations.gd" id="4_i4ans"]
+[ext_resource type="Script" path="res://scripts/bladder_bar.gd" id="5_ptx6u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8a47"]
 bg_color = Color(0.254902, 0.572549, 0.788235, 1)
@@ -81,7 +82,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
-step = 1.0
+script = ExtResource("5_ptx6u")
 
 [node name="MoveEffort" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 visible = false
@@ -101,6 +102,7 @@ step = 1.0
 value = 1.0
 
 [node name="DayPart" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="DayPartLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/DayPart"]
@@ -127,5 +129,9 @@ text = "START >"
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
 
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/StartButton" to="." method="_on_Start_button_pressed"]
