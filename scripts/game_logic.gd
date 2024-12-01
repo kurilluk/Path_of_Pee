@@ -89,7 +89,7 @@ func generate_level_map(level: int = 1) -> Vector2:
 			map.generate_map(11, 11)
 			map.place_moveable_blocks(3)
 			map.place_items(15,5)
-		_: # preset for level 2
+		_: # preset default/invalid level
 			map.generate_map(5, 5)
 			map.place_moveable_blocks(1)
 
