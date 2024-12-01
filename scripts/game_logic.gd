@@ -85,6 +85,7 @@ func progress_day():
 
 func generate_level_map(level: int = 1) -> Vector2:
 	map.generate_map(11, 11)
+	map.place_moveable_blocks(1)
 	map.place_items(15,5)
 	return map.place_player();
 
