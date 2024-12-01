@@ -24,5 +24,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = ExtResource("1_j5bv8")
 
 [node name="PlayerTiles" type="TileMapLayer" parent="."]
+visible = false
 tile_map_data = PackedByteArray("AAAdAAsADgAAAAAAAAA=")
 tile_set = ExtResource("1_j5bv8")

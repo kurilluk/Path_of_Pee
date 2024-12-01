@@ -15,10 +15,9 @@ script = ExtResource("1_rnh5h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-zoom = Vector2(2, 2)
+zoom = Vector2(4, 4)
 
 [node name="Map" parent="." instance=ExtResource("2_6sbis")]
-position = Vector2(449, 5)
 
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true
@@ -38,6 +37,7 @@ theme_override_constants/margin_bottom = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_constants/separation = 12
 
 [node name="Hydration" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]

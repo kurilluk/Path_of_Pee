@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var hero: Node2D = %Hero
+@onready var hero = %Hero
 @onready var map: Maze = $Map
 @onready var move_effort_bar: ProgressBar = %MoveEffortBar
 @onready var day_part_bar: ProgressBar = %DayPartBar
@@ -19,7 +19,7 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	map.place_items(15,3)
+	map.place_items(15,5)
 
 func _input(event: InputEvent) -> void:
 	# Reset the direction
@@ -49,13 +49,15 @@ func _input(event: InputEvent) -> void:
 		if effort >= move_effort_bar.max_value:
 			effort = 0
 			direction = direction.normalized()
-			var resunt = map.move_player(direction)
-			update_player(resunt)
+			var result = map.move_player(direction)
+			update_player(result)
 			progress_day()
-	hero.position += direction * speed
+			#hero.move_hero(hero.position + direction * speed)
+	#hero.position += direction * speed
 
 func update_player(result : PlayerMoveResult):
 	if result.success:
+		hero.move_hero(result.global_position)
 		if result.item_tile_id == 15:
 			drink()
 			map.remove_item(result.new_coords)

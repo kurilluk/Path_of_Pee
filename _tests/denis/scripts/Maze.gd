@@ -62,6 +62,7 @@ func change_shadow_direction():
 func place_items(item_tile_id: int, count, only_in_shades: bool = false):
 	var offset_x = randi_range(0, map_width)
 	var offset_y = randi_range(0, map_height)
+	itemsTiles.clear()
 	for x in range(map_width):
 		for y in range(map_height):
 			var coords = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
@@ -121,6 +122,7 @@ func move_player(relative_coords: Vector2i) -> PlayerMoveResult:
 	
 	var result = PlayerMoveResult.new(true, new_player_coords);
 	result.item_tile_id = itemsTiles.get_cell_source_id(new_player_coords)
+	result.global_position = to_global(playerTiles.map_to_local(new_player_coords))
 	return result;
 
 func _place_player():
@@ -162,6 +164,7 @@ func _generate_unbreakables():
 	# Generate unbreakable walls at the borders on Layer 2
 	if not obstacleTiles:
 		return
+	obstacleTiles.clear()
 	for x in range(map_width):
 		for y in range(map_height):
 			if x == 0 or x == map_width - 1 or y == 0 or y == map_height - 1:
@@ -214,6 +217,7 @@ func _generate_breakables():
 
 func _generate_background():
 	#--------------------------------- BACKGROUND ------------------------------
+	groundTiles.clear()
 	for x in range(map_width):
 		for y in range(map_height):
 			var cell_coords = Vector2i(x, y + map_offset)
