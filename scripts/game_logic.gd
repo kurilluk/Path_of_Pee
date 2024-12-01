@@ -12,11 +12,15 @@ extends Node2D
 @onready var Music: AudioStreamPlayer = $Music
 @onready var Overvoise: AudioStreamPlayer = $Overvoice
 @onready var score_value: Label = %ScoreValue
+@onready var flush: AudioStreamPlayer = $Flush
+@onready var ui_game: MarginContainer = %UI_game
+
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
 var day_part: int = 0
 var score: int = 0
+var no_inputs = true
 
 const BLADDER_RATIO = 0.3
 const HYDRATION_CONSUM = 5
@@ -28,14 +32,19 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	ui_game.modulate.a = 0.0
 	get_tree().paused = true
 	SoundManager.start_ambient_loop(Music)
 	score = 0;
 	score_value.text = "0"
+	no_inputs = true
 	pass
 
 func _input(event: InputEvent) -> void:
 	# Reset the direction
+	if no_inputs:
+		return
+		
 	var direction = Vector2.ZERO
 	
 	if Input.is_action_just_pressed("ui_accept"):
@@ -76,6 +85,7 @@ func _input(event: InputEvent) -> void:
 			progress_day()			
 			#hero.move_hero(hero.position + direction * speed)
 	#hero.position += direction * speed
+
 	
 func check_for_items(item_tile_id: int, item_coords: Vector2i):
 	match item_tile_id:
@@ -86,7 +96,7 @@ func check_for_items(item_tile_id: int, item_coords: Vector2i):
 			map.remove_item(item_coords)
 		20: # teleport/toilet
 			blader_bar.set_value_no_signal(0.0)
-			SoundManager.play_sound(Overvoise, SoundManager.FLUSH_SOUND)
+			SoundManager.play_sound(flush, SoundManager.FLUSH_SOUND)
 			next_level()
 		22: # fountain
 			blader_bar.add_liquid(10)
@@ -128,7 +138,7 @@ func generate_level_map(level: int = 1) -> Vector2:
 #
 	#return map.place_player();
 	map.generate_map(INITIAL_MAZE_SIZE+(2*level), INITIAL_MAZE_SIZE+(2*level))
-	map.place_moveable_blocks(level)
+	map.place_moveable_blocks(2*level-1)
 	map.place_items(15,2 * level) # Bottles
 	map.place_items(20,1) # Toilette
 	map.place_items(22, 2 * (level-1)) # Fountains
@@ -138,10 +148,14 @@ func generate_level_map(level: int = 1) -> Vector2:
 
 var actual_level : int = 1
 func next_level():
-	var 	tween = get_tree().create_tween()
+	var tween = get_tree().create_tween()
+	#get_tree().paused = true
+	no_inputs = true
 	tween.tween_property(map,"modulate:a",0.0,1)
 	#await tween.finished
 	tween.connect("finished", on_map_hide)
+
+
 	
 func on_map_hide():
 	hero.move_hero(Vector2.ZERO,0.0)
@@ -149,14 +163,25 @@ func on_map_hide():
 	generate_level_map(actual_level)
 	tween.tween_property(map,"modulate:a",1.0,1)
 	actual_level += 1
+	#get_tree().paused = false
+	no_inputs = false
 
 func _on_Start_button_pressed() -> void:
+	hero.reset()
+	ui_game.modulate.a = 0.0
+	blader_bar.set_value_no_signal(0.0)
+	hydration_bar.set_value_no_signal(50.0)
+	score = 0
+	score_value.text = "0"
+	var tween = create_tween()
+	tween.tween_property(ui_game,"modulate:a",1.0,2)
 	get_tree().paused = false
 	actual_level = 1
 	var new_position = generate_level_map()
 	hero.move_hero(new_position,1)
 	start_button.visible = false
 	SoundManager.play_button_click_sound(SFX)
+	no_inputs = false
 
 func play_music(value: float):
 	if value > 80:
@@ -180,6 +205,8 @@ func game_over():
 	SoundManager.play_game_over(SFX)
 	hero.play_game_over()
 	get_tree().paused = true
+	start_button.text = "Try again?"
+	start_button.visible = true
 	# TODO end screen
 	
 	pass

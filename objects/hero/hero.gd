@@ -9,6 +9,10 @@ func _ready() -> void:
 	pass
 	#tween = get_tree().create_tween()
 
+func reset():
+	animated_sprite.stop()
+	animated_sprite.frame = 0
+
 func play_game_over():
 	animated_sprite.play("game_over")
 
