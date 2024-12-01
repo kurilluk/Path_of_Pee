@@ -72,6 +72,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
 step = 1.0
 
 [node name="MoveEffort" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MoveEffortLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/MoveEffort"]
