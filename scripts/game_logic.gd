@@ -26,6 +26,7 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().paused = true
 	SoundManager.start_ambient_loop(Music)
 	pass
 
@@ -69,8 +70,16 @@ func _input(event: InputEvent) -> void:
 			progress_day()			
 			#hero.move_hero(hero.position + direction * speed)
 	#hero.position += direction * speed
+	
+func check_is_teleport(result : PlayerMoveResult):
+	if result.success:
+		if result.item_tile_id == 20:
+			blader_bar.set_value_no_signal(0.0)
+			SoundManager.play_sound(SFX,SoundManager.SFX_DRINKING_CAN_1)
+			next_level()
 
 func update_player(result : PlayerMoveResult):
+	check_is_teleport(result)
 	if result.success:
 		hero.move_hero(result.global_position)
 		if result.item_tile_id == 15:
@@ -114,7 +123,8 @@ func generate_level_map(level: int = 1) -> Vector2:
 	#return map.place_player();
 	map.generate_map(INITIAL_MAZE_SIZE+(2*level), INITIAL_MAZE_SIZE+(2*level))
 	map.place_moveable_blocks(level)
-	map.place_items(15,4+(2*level))
+	map.place_items(15,2*level)
+	map.place_items(20,1) # Toilette
 	map.position = Vector2.ZERO
 	map.position = - map.place_player()
 	return Vector2.ZERO #map.place_player()
@@ -134,6 +144,7 @@ func on_map_hide():
 	actual_level += 1
 
 func _on_Start_button_pressed() -> void:
+	get_tree().paused = false
 	actual_level = 1
 	var new_position = generate_level_map()
 	hero.move_hero(new_position,1)
@@ -148,6 +159,8 @@ func play_music(value: float):
 
 func _on_bladder_bar_value_changed(value: float) -> void:
 	play_music(value)
+	if value >= 100:
+		game_over()
 	#TODO game over when value is 100 or more
 	
 	#var bladder_fill_rate = (blader_bar.value + 0.0) / blader_bar.max_value;
@@ -155,3 +168,15 @@ func _on_bladder_bar_value_changed(value: float) -> void:
 		#SoundManager.transit_ambient_to_phase3();
 	#elif bladder_fill_rate > 0.40: # 60%
 		#SoundManager.transit_ambient_to_phase2();
+func game_over():
+	Music.stop()
+	SoundManager.play_game_over(SFX)
+	hero.play_game_over()
+	get_tree().paused = true
+	# TODO end screen
+	
+	pass
+
+func _on_hydration_bar_value_changed(value: float) -> void:
+	if value <= 0:
+		game_over() 	#TODO 

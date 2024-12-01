@@ -30,6 +30,7 @@ enabled = false
 
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true
+process_mode = 3
 position = Vector2(-1435, 0)
 
 [node name="PickupAnimations" type="Node2D" parent="Hero"]
@@ -119,6 +120,7 @@ step = 1.0
 
 [node name="StartButton" type="Button" parent="GUI/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+process_mode = 3
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 10
@@ -127,11 +129,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_s8vhh")
 text = "START >"
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 
-[node name="Overvoise" type="AudioStreamPlayer" parent="."]
+[node name="Overvoice" type="AudioStreamPlayer" parent="."]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-volume_db = -15.0
+process_mode = 3
+volume_db = -30.0
 
+[connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/Hydration/HydrationBar" to="." method="_on_hydration_bar_value_changed"]
 [connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/Blader/BladerBar" to="." method="_on_bladder_bar_value_changed"]
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/StartButton" to="." method="_on_Start_button_pressed"]

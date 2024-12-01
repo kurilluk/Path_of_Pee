@@ -9,6 +9,9 @@ func _ready() -> void:
 	pass
 	#tween = get_tree().create_tween()
 
+func play_game_over():
+	animated_sprite.play("game_over")
+
 func move_hero(new_position : Vector2, time : float = 0.2):
 	#print(new_position)
 	var 	tween = get_tree().create_tween()
