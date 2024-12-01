@@ -11,6 +11,6 @@ func _ready() -> void:
 func move_hero(new_position : Vector2, time : float = 0.2):
 	#print(new_position)
 	var 	tween = get_tree().create_tween()
-	animated_sprite.play("default")
+	animated_sprite.play("game_over")
 	tween.tween_property(self,"position",new_position,time)
 	#animated_sprite.stop()
