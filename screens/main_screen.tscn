@@ -57,19 +57,28 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 12
 
-[node name="Hydration" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
-layout_mode = 2
-texture = ExtResource("5_rxqlc")
-
-[node name="HydrationLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
+[node name="HydrationLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Hydration"
 
-[node name="HydrationBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
+[node name="Hydration" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/VBoxContainer/Hydration"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("5_rxqlc")
+expand_mode = 1
+
+[node name="HydrationBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/VBoxContainer/Hydration"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
@@ -77,22 +86,31 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_x8a47")
 step = 1.0
 value = 50.0
 
-[node name="Blader" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+[node name="Blader" type="VBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Blader"]
-layout_mode = 2
-texture = ExtResource("6_x88ql")
+theme_override_constants/separation = 8
 
 [node name="BladerLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Blader"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Bladder"
 
-[node name="BladerBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Blader"]
+[node name="VBoxContainer" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer/Blader"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Blader/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("6_x88ql")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BladerBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Blader/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
 script = ExtResource("5_ptx6u")
 
@@ -113,25 +131,35 @@ max_value = 1.0
 step = 1.0
 value = 1.0
 
-[node name="Score" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+[node name="Score" type="VBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Score"]
-layout_mode = 2
-texture = ExtResource("8_tsu26")
+theme_override_constants/separation = 8
 
 [node name="ScoreLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Score"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
-text = "Move Effort"
+text = "Score"
 
-[node name="ScoreValue" type="Label" parent="GUI/MarginContainer/VBoxContainer/Score"]
+[node name="VBoxContainer" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer/Score"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Score/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("8_tsu26")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ScoreValue" type="Label" parent="GUI/MarginContainer/VBoxContainer/Score/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
 text = "5000"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="MoveEffortBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Score"]
 visible = false
@@ -176,6 +204,6 @@ process_mode = 3
 process_mode = 3
 volume_db = -30.0
 
-[connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/Hydration/HydrationBar" to="." method="_on_hydration_bar_value_changed"]
-[connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/Blader/BladerBar" to="." method="_on_bladder_bar_value_changed"]
+[connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/VBoxContainer/Hydration/HydrationBar" to="." method="_on_hydration_bar_value_changed"]
+[connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/Blader/VBoxContainer/BladerBar" to="." method="_on_bladder_bar_value_changed"]
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/StartButton" to="." method="_on_Start_button_pressed"]
