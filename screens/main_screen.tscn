@@ -124,4 +124,8 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_a2iry")
 theme_override_styles/normal = SubResource("StyleBoxFlat_s8vhh")
 text = "START >"
 
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/StartButton" to="." method="_on_Start_button_pressed"]

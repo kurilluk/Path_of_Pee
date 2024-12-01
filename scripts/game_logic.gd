@@ -10,6 +10,8 @@ extends Node2D
 @onready var pickup_animations: PickupAnimations = $Hero/PickupAnimations
 
 
+@onready var SFX: AudioStreamPlayer = $SFX
+
 var last_direction = Vector2.ZERO
 var effort : int = 0
 var day_part: int = 0
@@ -79,6 +81,7 @@ func drink():
 	var emount = 100 - hydration_bar.value
 	hydration_bar.value = hydration_bar.max_value
 	blader_bar.value += emount*BLADDER_RATIO
+	SoundManager.play_sound(SFX,SoundManager.SFX_DINK)
 	# TODO add blader by day progression
 	
 	var sprite = Sprite2D.new()
@@ -112,7 +115,8 @@ func generate_level_map(level: int = 1) -> Vector2:
 #
 	#return map.place_player();
 	map.generate_map(INITIAL_MAZE_SIZE+(2*level), INITIAL_MAZE_SIZE+(2*level))
-	map.place_items(15,5)
+	map.place_moveable_blocks(level)
+	map.place_items(15,4+(2*level))
 	map.position = Vector2.ZERO
 	map.position = - map.place_player()
 	return Vector2.ZERO #map.place_player()
