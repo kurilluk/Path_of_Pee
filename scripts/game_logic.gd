@@ -11,6 +11,7 @@ extends Node2D
 @onready var SFX: AudioStreamPlayer = $SFX
 @onready var Music: AudioStreamPlayer = $Music
 @onready var Overvoise: AudioStreamPlayer = $Overvoice
+@onready var score_value: Label = %ScoreValue
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
@@ -30,6 +31,7 @@ func _ready() -> void:
 	get_tree().paused = true
 	SoundManager.start_ambient_loop(Music)
 	score = 0;
+	score_value.text = "0"
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -80,6 +82,7 @@ func check_for_items(item_tile_id: int, item_coords: Vector2i):
 		15: # bottle/water
 			drink()
 			score += 1;
+			score_value.text = str(score)
 			map.remove_item(item_coords)
 		20: # teleport/toilet
 			blader_bar.set_value_no_signal(0.0)
