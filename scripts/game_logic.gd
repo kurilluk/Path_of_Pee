@@ -15,6 +15,7 @@ extends Node2D
 var last_direction = Vector2.ZERO
 var effort : int = 0
 var day_part: int = 0
+var score: int = 0
 
 const BLADDER_RATIO = 0.3
 const HYDRATION_CONSUM = 5
@@ -28,6 +29,7 @@ const  speed: float = 64.0
 func _ready() -> void:
 	get_tree().paused = true
 	SoundManager.start_ambient_loop(Music)
+	score = 0;
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -66,25 +68,25 @@ func _input(event: InputEvent) -> void:
 			direction = direction.normalized()
 			var result = map.move_player(direction)
 			SoundManager.play_step_sound(SFX)
-			update_player(result)
+			if result.success:
+				hero.move_hero(result.global_position)
+				check_for_items(result.item_tile_id, result.new_coords)
 			progress_day()			
 			#hero.move_hero(hero.position + direction * speed)
 	#hero.position += direction * speed
 	
-func check_is_teleport(result : PlayerMoveResult):
-	if result.success:
-		if result.item_tile_id == 20:
-			blader_bar.set_value_no_signal(0.0)
-			SoundManager.play_sound(SFX,SoundManager.SFX_DRINKING_CAN_1)
-			next_level()
-
-func update_player(result : PlayerMoveResult):
-	check_is_teleport(result)
-	if result.success:
-		hero.move_hero(result.global_position)
-		if result.item_tile_id == 15:
+func check_for_items(item_tile_id: int, item_coords: Vector2i):
+	match item_tile_id:
+		15: # bottle/water
 			drink()
-			map.remove_item(result.new_coords)
+			score += 1;
+			map.remove_item(item_coords)
+		20: # teleport/toilet
+			blader_bar.set_value_no_signal(0.0)
+			SoundManager.play_sound(SFX, SoundManager.FLUSH_SOUND)
+			next_level()
+		22: # fountain
+			blader_bar.add_liquid(10)
 
 #func call_maze_hero(vector :Vector2):
 	#map.move_player(vector)
@@ -123,8 +125,9 @@ func generate_level_map(level: int = 1) -> Vector2:
 	#return map.place_player();
 	map.generate_map(INITIAL_MAZE_SIZE+(2*level), INITIAL_MAZE_SIZE+(2*level))
 	map.place_moveable_blocks(level)
-	map.place_items(15,2*level)
+	map.place_items(15,2 * level) # Bottles
 	map.place_items(20,1) # Toilette
+	map.place_items(22, 2 * (level-1)) # Fountains
 	map.position = Vector2.ZERO
 	map.position = - map.place_player()
 	return Vector2.ZERO #map.place_player()

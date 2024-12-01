@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=23 format=3 uid="uid://0g4utl6r807l"]
+[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://0g4utl6r807l"]
 
 [ext_resource type="Texture2D" uid="uid://caqm2g64yvjy6" path="res://assets/tile_sets/atlas/64x64_white_tile.svg" id="1_0gfh0"]
 [ext_resource type="Texture2D" uid="uid://dk4emxgcjkqu0" path="res://assets/textures/kurilluk/meeple_slot.svg" id="2_33et5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bjpwgcj4vp2lg" path="res://assets/tile_sets/atlas/shadow_ne.png" id="4_alg8j"]
 [ext_resource type="Texture2D" uid="uid://dt6s6bn26two0" path="res://assets/tile_sets/atlas/shadow_nw.png" id="5_i3jga"]
 [ext_resource type="Texture2D" uid="uid://c2grtdl6rumrv" path="res://assets/tile_sets/atlas/shadow_se.png" id="6_4dlx1"]
+[ext_resource type="Texture2D" uid="uid://cfir0sq5yu0j6" path="res://assets/textures/game-icons_net/waterfall.svg" id="6_l7q3j"]
 [ext_resource type="Texture2D" uid="uid://doy6sg2wlbjle" path="res://assets/tile_sets/atlas/shadow_sw.png" id="7_2nxp8"]
 [ext_resource type="Texture2D" uid="uid://dvu3htuxhd0ww" path="res://_tests/denis/assets/sprites/player.png" id="8_s4g23"]
 
@@ -42,6 +43,11 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u1jpc"]
 texture = ExtResource("2_33et5")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_la7j1"]
+texture = ExtResource("6_l7q3j")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
@@ -84,3 +90,4 @@ sources/5 = SubResource("TileSetAtlasSource_mgr1v")
 sources/20 = SubResource("TileSetAtlasSource_u1jpc")
 sources/17 = SubResource("TileSetAtlasSource_ci5x8")
 sources/15 = SubResource("TileSetAtlasSource_6u6y7")
+sources/22 = SubResource("TileSetAtlasSource_la7j1")
