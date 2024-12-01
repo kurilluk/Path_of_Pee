@@ -81,7 +81,7 @@ func drink():
 	var emount = 100 - hydration_bar.value
 	hydration_bar.value = hydration_bar.max_value
 	blader_bar.value += emount*BLADDER_RATIO
-	SoundManager.play_sound(SFX, SoundManager.SFX_DINK)
+	SoundManager.play_sound(SFX, SoundManager.SFX_DRINKING_BOTTLE_1)
 	# TODO add blader by day progression
 	
 	pickup_animations.show_drop_sprite()
