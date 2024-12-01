@@ -15,9 +15,9 @@ script = ExtResource("1_rnh5h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-zoom = Vector2(4, 4)
 
 [node name="Map" parent="." instance=ExtResource("2_6sbis")]
+position = Vector2(128, 128)
 
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true

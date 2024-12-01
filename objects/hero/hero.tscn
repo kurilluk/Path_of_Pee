@@ -16,7 +16,7 @@ visible = false
 shape = SubResource("CircleShape2D_pbyr6")
 
 [node name="Meeple" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_m324u")
 
 [node name="Camera2D" type="Camera2D" parent="."]

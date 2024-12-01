@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyaxq1f2bdlge"
-path="res://.godot/imported/icon.svg-958a189a5c2fe57391e3d9b3ea181aa4.ctex"
+uid="uid://caqm2g64yvjy6"
+path="res://.godot/imported/64x64_white_tile.svg-64f858b33d3b5185a4e154ab572b4d23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-958a189a5c2fe57391e3d9b3ea181aa4.ctex"]
+source_file="res://assets/tile_sets/atlas/64x64_white_tile.svg"
+dest_files=["res://.godot/imported/64x64_white_tile.svg-64f858b33d3b5185a4e154ab572b4d23.ctex"]
 
 [params]
 
