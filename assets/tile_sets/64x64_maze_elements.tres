@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://0g4utl6r807l"]
+[gd_resource type="TileSet" load_steps=23 format=3 uid="uid://0g4utl6r807l"]
 
 [ext_resource type="Texture2D" uid="uid://caqm2g64yvjy6" path="res://assets/tile_sets/atlas/64x64_white_tile.svg" id="1_0gfh0"]
 [ext_resource type="Texture2D" uid="uid://dk4emxgcjkqu0" path="res://assets/textures/kurilluk/meeple_slot.svg" id="2_33et5"]
 [ext_resource type="Texture2D" uid="uid://dyuv2y1e3tgd0" path="res://assets/tile_sets/atlas/shadow_fill.png" id="3_pquid"]
+[ext_resource type="Texture2D" uid="uid://staenxw6vrib" path="res://assets/textures/kurilluk/glass.svg" id="4_4juek"]
 [ext_resource type="Texture2D" uid="uid://cqx2pjxvw7lwl" path="res://assets/textures/kurilluk/drink.svg" id="4_7tj5o"]
 [ext_resource type="Texture2D" uid="uid://bjpwgcj4vp2lg" path="res://assets/tile_sets/atlas/shadow_ne.png" id="4_alg8j"]
 [ext_resource type="Texture2D" uid="uid://dt6s6bn26two0" path="res://assets/tile_sets/atlas/shadow_nw.png" id="5_i3jga"]
@@ -26,6 +27,11 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6u6y7"]
 texture = ExtResource("4_7tj5o")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ci5x8"]
+texture = ExtResource("4_4juek")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
@@ -76,4 +82,5 @@ sources/7 = SubResource("TileSetAtlasSource_3r2fk")
 sources/6 = SubResource("TileSetAtlasSource_u8hk6")
 sources/5 = SubResource("TileSetAtlasSource_mgr1v")
 sources/20 = SubResource("TileSetAtlasSource_u1jpc")
+sources/17 = SubResource("TileSetAtlasSource_ci5x8")
 sources/15 = SubResource("TileSetAtlasSource_6u6y7")

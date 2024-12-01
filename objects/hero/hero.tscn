@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxhgc37amr6ku"]
+[gd_scene load_steps=18 format=3 uid="uid://dxhgc37amr6ku"]
 
 [ext_resource type="Script" path="res://objects/hero/hero.gd" id="1_o1jct"]
 [ext_resource type="Texture2D" uid="uid://cbmhp1q0lptcd" path="res://assets/textures/kurilluk/meeple.png" id="2_55uby"]
 [ext_resource type="Texture2D" uid="uid://bcom6c8mxcyxp" path="res://assets/textures/kurilluk/meeple_sprite.png" id="3_3kr8c"]
+[ext_resource type="Texture2D" uid="uid://6rgdrotjm7mq" path="res://assets/textures/kurilluk/meeple_sprite_end.png" id="4_y077o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbyr6"]
 radius = 32.0
@@ -18,6 +19,38 @@ region = Rect2(64, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxv5s"]
 atlas = ExtResource("3_3kr8c")
 region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m00xd"]
+atlas = ExtResource("4_y077o")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnrno"]
+atlas = ExtResource("4_y077o")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgmpf"]
+atlas = ExtResource("4_y077o")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0rx6"]
+atlas = ExtResource("4_y077o")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nss2y"]
+atlas = ExtResource("4_y077o")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwyv4"]
+atlas = ExtResource("4_y077o")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m360r"]
+atlas = ExtResource("4_y077o")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqo7i"]
+atlas = ExtResource("4_y077o")
+region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p4c6w"]
 animations = [{
@@ -40,6 +73,71 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m00xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnrno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgmpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0rx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nss2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwyv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m360r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqo7i")
+}],
+"loop": true,
+"name": &"game_over",
+"speed": 20.0
 }]
 
 [node name="Hero" type="Node2D"]
@@ -52,12 +150,13 @@ visible = false
 shape = SubResource("CircleShape2D_pbyr6")
 
 [node name="Meeple" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_55uby")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
 sprite_frames = SubResource("SpriteFrames_p4c6w")
-frame = 3
+animation = &"game_over"
+frame = 19
 frame_progress = 1.0
