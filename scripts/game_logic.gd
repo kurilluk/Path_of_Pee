@@ -86,10 +86,11 @@ func check_for_items(item_tile_id: int, item_coords: Vector2i):
 			map.remove_item(item_coords)
 		20: # teleport/toilet
 			blader_bar.set_value_no_signal(0.0)
-			SoundManager.play_sound(SFX, SoundManager.FLUSH_SOUND)
+			SoundManager.play_sound(Overvoise, SoundManager.FLUSH_SOUND)
 			next_level()
 		22: # fountain
 			blader_bar.add_liquid(10)
+			SoundManager.play_sound(SFX, SoundManager.SFX_WATER_DRIP)
 
 #func call_maze_hero(vector :Vector2):
 	#map.move_player(vector)
