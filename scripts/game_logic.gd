@@ -17,6 +17,8 @@ var day_part: int = 0
 const BLADDER_RATIO = 0.3
 const HYDRATION_CONSUM = 5
 
+const INITIAL_MAZE_SIZE = 4
+
 # Speed of the Node2D
 const  speed: float = 64.0
 
@@ -29,6 +31,12 @@ func _input(event: InputEvent) -> void:
 	var direction = Vector2.ZERO
 	
 	if Input.is_action_just_pressed("ui_accept"):
+		_on_Start_button_pressed()
+		
+	if Input.is_action_just_pressed("ui_page_up"):
+		next_level()
+	
+	if Input.is_action_just_pressed("ui_page_down"):
 		drink()
 
 	# Update the direction based on input
@@ -93,18 +101,38 @@ func progress_day():
 		map.change_shadow_direction() 
 
 func generate_level_map(level: int = 1) -> Vector2:
-	match level:
-		1: # preset for level 1
-			map.generate_map(11, 11)
-			map.place_moveable_blocks(3)
-			map.place_items(15,5)
-		_: # preset default/invalid level
-			map.generate_map(5, 5)
-			map.place_moveable_blocks(1)
+	#match level:
+		#1: # preset for level 1
+			#map.generate_map(11, 11)
+			#map.place_moveable_blocks(3)
+			#map.place_items(15,5)
+		#_: # preset default/invalid level
+			#map.generate_map(5, 5)
+			#map.place_moveable_blocks(1)
+#
+	#return map.place_player();
+	map.generate_map(INITIAL_MAZE_SIZE+(2*level), INITIAL_MAZE_SIZE+(2*level))
+	map.place_items(15,5)
+	map.position = Vector2.ZERO
+	map.position = - map.place_player()
+	return Vector2.ZERO #map.place_player()
 
-	return map.place_player();
+var actual_level : int = 1
+func next_level():
+	var 	tween = get_tree().create_tween()
+	tween.tween_property(map,"modulate:a",0.0,1)
+	#await tween.finished
+	tween.connect("finished", on_map_hide)
+	
+func on_map_hide():
+	hero.move_hero(Vector2.ZERO,0.0)
+	var 	tween = get_tree().create_tween()
+	generate_level_map(actual_level)
+	tween.tween_property(map,"modulate:a",1.0,1)
+	actual_level += 1
 
 func _on_Start_button_pressed() -> void:
+	actual_level = 1
 	var new_position = generate_level_map()
 	hero.move_hero(new_position,1)
 	start_button.visible = false
