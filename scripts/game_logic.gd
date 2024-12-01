@@ -8,9 +8,8 @@ extends Node2D
 @onready var blader_bar: ProgressBar = %BladerBar
 @onready var start_button: Button = %StartButton
 @onready var pickup_animations: PickupAnimations = $Hero/PickupAnimations
-
-
 @onready var SFX: AudioStreamPlayer = $SFX
+@onready var Music: AudioStreamPlayer = $Music
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
@@ -26,6 +25,7 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SoundManager.start_ambient_loop(Music)
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -63,8 +63,9 @@ func _input(event: InputEvent) -> void:
 			effort = 0
 			direction = direction.normalized()
 			var result = map.move_player(direction)
+			SoundManager.play_step_sound(SFX)
 			update_player(result)
-			progress_day()
+			progress_day()			
 			#hero.move_hero(hero.position + direction * speed)
 	#hero.position += direction * speed
 
@@ -85,6 +86,13 @@ func drink():
 	# TODO add blader by day progression
 	
 	pickup_animations.show_drop_sprite()
+	
+	var bladder_fill_rate = (blader_bar.value + 0.0) / blader_bar.max_value;
+	if bladder_fill_rate > 0.90: # 90%
+		SoundManager.transit_ambient_to_phase3();
+	elif bladder_fill_rate > 0.60: # 60%
+		SoundManager.transit_ambient_to_phase2();
+		
 	
 #func balance_liquids():
 
@@ -136,3 +144,4 @@ func _on_Start_button_pressed() -> void:
 	var new_position = generate_level_map()
 	hero.move_hero(new_position,1)
 	start_button.visible = false
+	SoundManager.play_button_click_sound(SFX)
