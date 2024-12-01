@@ -10,7 +10,7 @@ extends Node2D
 @onready var pickup_animations: PickupAnimations = $Hero/PickupAnimations
 @onready var SFX: AudioStreamPlayer = $SFX
 @onready var Music: AudioStreamPlayer = $Music
-@onready var Overvoise: AudioStreamPlayer = $Overvoise
+@onready var Overvoise: AudioStreamPlayer = $Overvoice
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
