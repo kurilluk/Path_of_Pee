@@ -10,7 +10,7 @@ extends Node2D
 @onready var pickup_animations: PickupAnimations = $Hero/PickupAnimations
 @onready var SFX: AudioStreamPlayer = $SFX
 @onready var Music: AudioStreamPlayer = $Music
-@onready var Overvoise: AudioStreamPlayer = $Overvoice
+@onready var Overvoice: AudioStreamPlayer = $Overvoice
 @onready var score_value: Label = %ScoreValue
 @onready var flush: AudioStreamPlayer = $Flush
 @onready var ui_game: MarginContainer = %UI_game
@@ -22,6 +22,7 @@ var effort : int = 0
 var day_part: int = 0
 var score: int = 0
 var no_inputs = true
+var thirsty = false
 
 const BLADDER_RATIO = 0.3
 const HYDRATION_CONSUM = 5
@@ -38,6 +39,7 @@ func _ready() -> void:
 	score = 0;
 	score_value.text = "0"
 	no_inputs = true
+	thirsty = true
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -159,9 +161,6 @@ func next_level():
 	#await tween.finished
 	tween.connect("finished", on_map_hide)
 
-
-
-	
 func on_map_hide():
 	hero.move_hero(Vector2.ZERO,0.0)
 	var 	tween = get_tree().create_tween()
@@ -171,7 +170,6 @@ func on_map_hide():
 	level_value.text = str(actual_level)
 	#get_tree().paused = false
 	no_inputs = false
-
 
 func _on_Start_button_pressed() -> void:
 	hero.reset()
@@ -200,9 +198,9 @@ func on_UI_loaded():
 
 func play_music(value: float):
 	if value > 80:
-		SoundManager.transit_ambient_to_phase3(Overvoise);
+		SoundManager.transit_ambient_to_phase3(Overvoice);
 	elif value > 40:
-		SoundManager.transit_ambient_to_phase2(Overvoise);
+		SoundManager.transit_ambient_to_phase2(Overvoice);
 
 func _on_bladder_bar_value_changed(value: float) -> void:
 	play_music(value)
@@ -228,4 +226,12 @@ func game_over():
 
 func _on_hydration_bar_value_changed(value: float) -> void:
 	if value <= 0:
-		game_over() 	#TODO 
+		game_over() 	#TODO
+
+	var thirsty_threshold = 30;	
+	if value < thirsty_threshold && !thirsty:
+		SoundManager.play_thirsty_sound(Overvoice);
+		thirsty = true
+	elif value >= thirsty_threshold:
+		thirsty = false
+	

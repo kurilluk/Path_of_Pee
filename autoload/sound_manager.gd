@@ -19,6 +19,9 @@ const FOLLEY_STEP_5 = preload("res://assets/sounds/sfx/Folley_Step5.mp3")
 
 const SFX_VOC_ICANTHOLDDITLONGER = preload("res://assets/sounds/sfx/SFX_VOC_Icantholdditlonger.wav")
 const SFX_VOC_INEEDTOPEE_1 = preload("res://assets/sounds/sfx/SFX_VOC_Ineedtopee1.wav")
+const SFX_VOC_IM_THIRSTY = preload("res://assets/sounds/sfx/SFX_VOC_ImThirsty.wav")
+const SFX_VOC_IM_THIRSTY_2 = preload("res://assets/sounds/sfx/SFX_VOC_ImThirsty2.wav")
+
 const MUSIC_PART_1_LOOPED = preload("res://assets/sounds/Music/Music_Part1Looped.mp3")
 const MUSIC_PART_2_LOOPED = preload("res://assets/sounds/Music/Music_Part2Looped.mp3")
 const MUSIC_PART_3_LOOPED = preload("res://assets/sounds/Music/Music_Part3Looped.mp3")
@@ -41,9 +44,14 @@ func play_game_over(soundPlayer: AudioStreamPlayer) -> void:
 	play_sound(soundPlayer, UI_GAME_OVER)
 
 func play_dink_sound(soundPlayer: AudioStreamPlayer) -> void:
-	match randi_range(0, 2):
+	match randi_range(0, 1):
 		0: play_sound(soundPlayer, SFX_DRINKING_BOTTLE_1)
-		1: play_sound(soundPlayer, SFX_DRINKING_CAN_1)
+		_: play_sound(soundPlayer, SFX_DRINKING_CAN_1)
+
+func play_thirsty_sound(voPlayer: AudioStreamPlayer) -> void:
+	match randi_range(0, 2):
+		0: play_sound(voPlayer, SFX_VOC_IM_THIRSTY)
+		_: play_sound(voPlayer, SFX_VOC_IM_THIRSTY_2)
 
 func play_step_sound(soundPlayer: AudioStreamPlayer) -> void:
 	match randi_range(0, 5):
