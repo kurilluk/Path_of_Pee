@@ -1,16 +1,28 @@
-[gd_scene load_steps=13 format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=19 format=3 uid="uid://yecbj7sxsmhv"]
 
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
 [ext_resource type="PackedScene" uid="uid://tn7tnsad5fvd" path="res://_tests/denis/GameMap.tscn" id="2_6sbis"]
+[ext_resource type="Texture2D" uid="uid://c4i23c47onmk5" path="res://assets/textures/kurilluk/background.png" id="2_hncko"]
 [ext_resource type="Script" path="res://scripts/pickup_animations.gd" id="4_i4ans"]
 [ext_resource type="Script" path="res://scripts/bladder_bar.gd" id="5_ptx6u"]
 [ext_resource type="Texture2D" uid="uid://c617l6xa8b5x1" path="res://assets/textures/kurilluk/drink_blue.svg" id="5_rxqlc"]
+[ext_resource type="Texture2D" uid="uid://dk4emxgcjkqu0" path="res://assets/textures/kurilluk/meeple_slot.svg" id="6_dti3u"]
 [ext_resource type="Texture2D" uid="uid://c7yrusv3oqi2a" path="res://assets/textures/kurilluk/blodder_blue.svg" id="6_x88ql"]
 [ext_resource type="Texture2D" uid="uid://staenxw6vrib" path="res://assets/textures/kurilluk/glass.svg" id="8_tsu26"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_snjub"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0fpqo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gpse"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8a47"]
 bg_color = Color(0.254902, 0.572549, 0.788235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4ov5"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te35g"]
 bg_color = Color(0.788235, 0.72549, 0.254902, 1)
@@ -24,6 +36,10 @@ bg_color = Color(0, 0, 0, 1)
 [node name="MainScreen" type="Node2D"]
 script = ExtResource("1_rnh5h")
 
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(-1920, 0)
+texture = ExtResource("2_hncko")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
 anchor_mode = 0
@@ -34,7 +50,7 @@ enabled = false
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true
 process_mode = 3
-position = Vector2(-1435, 0)
+position = Vector2(-1920, 0)
 
 [node name="PickupAnimations" type="Node2D" parent="Hero"]
 script = ExtResource("4_i4ans")
@@ -53,112 +69,66 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/UI_game"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_constants/separation = 12
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/UI_game/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/UI_game"]
 layout_mode = 2
 
-[node name="Level" type="Label" parent="GUI/UI_game/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="GUI/UI_game/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level" type="VBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Level"]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Level"
 
-[node name="Level_value" type="Label" parent="GUI/UI_game/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Level"]
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_font_sizes/font_size = 24
-text = "0"
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/UI_game/VBoxContainer"]
-layout_mode = 2
-
-[node name="HydrationLabel" type="Label" parent="GUI/UI_game/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-text = "Hydration"
-
-[node name="Hydration" type="HBoxContainer" parent="GUI/UI_game/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_constants/separation = 8
-
-[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/VBoxContainer/VBoxContainer/Hydration"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-texture = ExtResource("5_rxqlc")
-expand_mode = 1
-
-[node name="HydrationBar" type="ProgressBar" parent="GUI/UI_game/VBoxContainer/VBoxContainer/Hydration"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 32)
-layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_x8a47")
-step = 1.0
-value = 50.0
-
-[node name="Blader" type="VBoxContainer" parent="GUI/UI_game/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="BladerLabel" type="Label" parent="GUI/UI_game/VBoxContainer/Blader"]
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-text = "Bladder"
-
-[node name="VBoxContainer" type="HBoxContainer" parent="GUI/UI_game/VBoxContainer/Blader"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/VBoxContainer/Blader/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Level/VBoxContainer"]
+modulate = Color(0.388235, 0.172549, 0.313726, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 8
-texture = ExtResource("6_x88ql")
+texture = ExtResource("6_dti3u")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="BladerBar" type="ProgressBar" parent="GUI/UI_game/VBoxContainer/Blader/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 32)
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
-script = ExtResource("5_ptx6u")
-
-[node name="MoveEffort" type="HBoxContainer" parent="GUI/UI_game/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="MoveEffortLabel" type="Label" parent="GUI/UI_game/VBoxContainer/MoveEffort"]
+[node name="ScoreValue" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Level/VBoxContainer"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
-text = "Move Effort"
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.388235, 0.172549, 0.313726, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "5000"
+horizontal_alignment = 1
 
-[node name="MoveEffortBar" type="ProgressBar" parent="GUI/UI_game/VBoxContainer/MoveEffort"]
-unique_name_in_owner = true
+[node name="MoveEffortBar" type="ProgressBar" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Level"]
+visible = false
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
 max_value = 1.0
 step = 1.0
 value = 1.0
 
-[node name="Score" type="VBoxContainer" parent="GUI/UI_game/VBoxContainer"]
+[node name="Score" type="VBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="ScoreLabel" type="Label" parent="GUI/UI_game/VBoxContainer/Score"]
+[node name="ScoreLabel" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Score"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Score"
 
-[node name="VBoxContainer" type="HBoxContainer" parent="GUI/UI_game/VBoxContainer/Score"]
+[node name="VBoxContainer" type="HBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Score"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/VBoxContainer/Score/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Score/VBoxContainer"]
+modulate = Color(0.254902, 0.572549, 0.788235, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 8
@@ -166,16 +136,19 @@ texture = ExtResource("8_tsu26")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ScoreValue" type="Label" parent="GUI/UI_game/VBoxContainer/Score/VBoxContainer"]
+[node name="ScoreValue" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Score/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.254902, 0.572549, 0.788235, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 24
 text = "5000"
 horizontal_alignment = 1
 
-[node name="MoveEffortBar" type="ProgressBar" parent="GUI/UI_game/VBoxContainer/Score"]
+[node name="MoveEffortBar" type="ProgressBar" parent="GUI/UI_game/HBoxContainer/VBoxContainer2/Score"]
 visible = false
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
@@ -183,16 +156,112 @@ max_value = 1.0
 step = 1.0
 value = 1.0
 
-[node name="DayPart" type="HBoxContainer" parent="GUI/UI_game/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="GUI/UI_game/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_snjub")
+
+[node name="VSeparator" type="VSeparator" parent="GUI/UI_game/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0fpqo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/UI_game/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 12
+
+[node name="Hydration" type="VBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HydrationLabel" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Hydration"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Hydration"
+
+[node name="Hydration" type="HBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Hydration"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Hydration/Hydration"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("5_rxqlc")
+expand_mode = 1
+
+[node name="HydrationBar" type="ProgressBar" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Hydration/Hydration"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_2gpse")
+theme_override_styles/fill = SubResource("StyleBoxFlat_x8a47")
+step = 1.0
+value = 50.0
+
+[node name="Blader" type="VBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BladerLabel" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Blader"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Bladder"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Blader"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Blader/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("6_x88ql")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BladerBar" type="ProgressBar" parent="GUI/UI_game/HBoxContainer/VBoxContainer/Blader/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_o4ov5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
+value = 50.0
+script = ExtResource("5_ptx6u")
+
+[node name="MoveEffort" type="HBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="DayPartLabel" type="Label" parent="GUI/UI_game/VBoxContainer/DayPart"]
+[node name="MoveEffortLabel" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer/MoveEffort"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Move Effort"
+
+[node name="MoveEffortBar" type="ProgressBar" parent="GUI/UI_game/HBoxContainer/VBoxContainer/MoveEffort"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+max_value = 1.0
+step = 1.0
+value = 1.0
+
+[node name="DayPart" type="HBoxContainer" parent="GUI/UI_game/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="DayPartLabel" type="Label" parent="GUI/UI_game/HBoxContainer/VBoxContainer/DayPart"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Day Part"
 
-[node name="DayPartBar" type="ProgressBar" parent="GUI/UI_game/VBoxContainer/DayPart"]
+[node name="DayPartBar" type="ProgressBar" parent="GUI/UI_game/HBoxContainer/VBoxContainer/DayPart"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
@@ -230,6 +299,6 @@ volume_db = -12.0
 process_mode = 3
 volume_db = -15.0
 
-[connection signal="value_changed" from="GUI/UI_game/VBoxContainer/VBoxContainer/Hydration/HydrationBar" to="." method="_on_hydration_bar_value_changed"]
-[connection signal="value_changed" from="GUI/UI_game/VBoxContainer/Blader/VBoxContainer/BladerBar" to="." method="_on_bladder_bar_value_changed"]
+[connection signal="value_changed" from="GUI/UI_game/HBoxContainer/VBoxContainer/Hydration/Hydration/HydrationBar" to="." method="_on_hydration_bar_value_changed"]
+[connection signal="value_changed" from="GUI/UI_game/HBoxContainer/VBoxContainer/Blader/VBoxContainer/BladerBar" to="." method="_on_bladder_bar_value_changed"]
 [connection signal="pressed" from="GUI/UI_onboarding/StartButton" to="." method="_on_Start_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://0g4utl6r807l"]
+[gd_resource type="TileSet" load_steps=27 format=3 uid="uid://0g4utl6r807l"]
 
 [ext_resource type="Texture2D" uid="uid://caqm2g64yvjy6" path="res://assets/tile_sets/atlas/64x64_white_tile.svg" id="1_0gfh0"]
 [ext_resource type="Texture2D" uid="uid://dk4emxgcjkqu0" path="res://assets/textures/kurilluk/meeple_slot.svg" id="2_33et5"]
@@ -51,6 +51,16 @@ texture = ExtResource("6_l7q3j")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vj4j"]
+texture = ExtResource("4_7tj5o")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xxvte"]
+texture = ExtResource("4_4juek")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mgr1v"]
 texture = ExtResource("3_pquid")
 texture_region_size = Vector2i(64, 64)
@@ -91,3 +101,5 @@ sources/20 = SubResource("TileSetAtlasSource_u1jpc")
 sources/17 = SubResource("TileSetAtlasSource_ci5x8")
 sources/15 = SubResource("TileSetAtlasSource_6u6y7")
 sources/22 = SubResource("TileSetAtlasSource_la7j1")
+sources/3 = SubResource("TileSetAtlasSource_0vj4j")
+sources/4 = SubResource("TileSetAtlasSource_xxvte")
