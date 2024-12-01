@@ -87,13 +87,6 @@ func drink():
 	
 	pickup_animations.show_drop_sprite()
 	
-	var bladder_fill_rate = (blader_bar.value + 0.0) / blader_bar.max_value;
-	if bladder_fill_rate > 0.90: # 90%
-		SoundManager.transit_ambient_to_phase3();
-	elif bladder_fill_rate > 0.60: # 60%
-		SoundManager.transit_ambient_to_phase2();
-		
-	
 #func balance_liquids():
 
 func spend_liquids():
@@ -145,3 +138,19 @@ func _on_Start_button_pressed() -> void:
 	hero.move_hero(new_position,1)
 	start_button.visible = false
 	SoundManager.play_button_click_sound(SFX)
+
+func play_music(value: float):
+	if value > 80:
+		SoundManager.transit_ambient_to_phase3();
+	elif value > 40:
+		SoundManager.transit_ambient_to_phase2();
+
+func _on_bladder_bar_value_changed(value: float) -> void:
+	play_music(value)
+	#TODO game over when value is 100 or more
+	
+	#var bladder_fill_rate = (blader_bar.value + 0.0) / blader_bar.max_value;
+	#if bladder_fill_rate > 0.80: # 90%
+		#SoundManager.transit_ambient_to_phase3();
+	#elif bladder_fill_rate > 0.40: # 60%
+		#SoundManager.transit_ambient_to_phase2();

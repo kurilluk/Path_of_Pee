@@ -128,10 +128,10 @@ text = "START >"
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 
+[node name="Overvoise" type="AudioStreamPlayer" parent="."]
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
 
-[node name="Timer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 0.2
-
+[connection signal="value_changed" from="GUI/MarginContainer/VBoxContainer/Blader/BladerBar" to="." method="_on_bladder_bar_value_changed"]
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/StartButton" to="." method="_on_Start_button_pressed"]
