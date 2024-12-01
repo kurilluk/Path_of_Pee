@@ -14,8 +14,9 @@ extends Node2D
 @onready var score_value: Label = %ScoreValue
 @onready var flush: AudioStreamPlayer = $Flush
 @onready var ui_game: MarginContainer = %UI_game
+@onready var level_value: Label = %LevelValue
 
-
+var actual_level : int = 1
 var last_direction = Vector2.ZERO
 var effort : int = 0
 var day_part: int = 0
@@ -34,7 +35,6 @@ const  speed: float = 64.0
 func _ready() -> void:
 	ui_game.modulate.a = 0.0
 	get_tree().paused = true
-	SoundManager.start_ambient_loop(Music)
 	score = 0;
 	score_value.text = "0"
 	no_inputs = true
@@ -139,7 +139,7 @@ func generate_level_map(level: int = 1) -> Vector2:
 #
 	#return map.place_player();
 	map.generate_map(INITIAL_MAZE_SIZE+(2*level), INITIAL_MAZE_SIZE+(2*level))
-	map.place_moveable_blocks(2*level-1)
+	map.place_moveable_blocks(level*level) #moveable blocks
 	map.place_items(15,2 * level) # Bottles
 	map.place_items(20,1) # Toilette
 	map.place_items(22, 2 * (level-1)) # Fountains
@@ -147,7 +147,6 @@ func generate_level_map(level: int = 1) -> Vector2:
 	map.position = - map.place_player()
 	return Vector2.ZERO #map.place_player()
 
-var actual_level : int = 1
 func next_level():
 	var tween = get_tree().create_tween()
 	#get_tree().paused = true
@@ -157,6 +156,7 @@ func next_level():
 	tween.connect("finished", on_map_hide)
 
 
+
 	
 func on_map_hide():
 	hero.move_hero(Vector2.ZERO,0.0)
@@ -164,8 +164,10 @@ func on_map_hide():
 	generate_level_map(actual_level)
 	tween.tween_property(map,"modulate:a",1.0,1)
 	actual_level += 1
+	level_value.text = str(actual_level)
 	#get_tree().paused = false
 	no_inputs = false
+
 
 func _on_Start_button_pressed() -> void:
 	hero.reset()
@@ -178,11 +180,13 @@ func _on_Start_button_pressed() -> void:
 	tween.tween_property(ui_game,"modulate:a",1.0,2)
 	get_tree().paused = false
 	actual_level = 1
+	level_value.text = str(actual_level)
 	var new_position = generate_level_map()
 	hero.move_hero(new_position,1)
 	start_button.visible = false
 	SoundManager.play_button_click_sound(SFX)
 	no_inputs = false
+	SoundManager.start_ambient_loop(Music)
 
 func play_music(value: float):
 	if value > 80:
