@@ -21,6 +21,7 @@ config/icon="res://assets/textures/game-icons_net/spill.svg"
 
 Global="*res://_examples/bomber_clone/Scripts/Global.gd"
 GameManager="*res://autoload/game_manager.gd"
+SoundManager="*res://autoload/sound_manager.gd"
 
 [display]
 
