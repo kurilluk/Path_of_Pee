@@ -84,9 +84,9 @@ func progress_day():
 		map.change_shadow_direction() 
 
 func generate_level_map(level: int = 1) -> Vector2:
-	map.generateMap(11, 11)
+	map.generate_map(11, 11)
 	map.place_items(15,5)
-	return Vector2.ZERO
+	return map.place_player();
 
 func _on_Start_button_pressed() -> void:
 	var new_position = generate_level_map()

@@ -34,7 +34,7 @@ enum Direction { N, NE, E, SE, S, SW, W, NW }
 func _ready():
 	pass
 	
-func generateMap(width: int, height: int):
+func generate_map(width: int, height: int):
 	if (width % 2 != 1):
 		width += 1;
 	if (height % 2 != 1):
@@ -46,7 +46,18 @@ func generateMap(width: int, height: int):
 	
 	_generate_map()
 	change_shadow_direction()
-	_place_player()
+
+func place_player() -> Vector2:
+	var coords = Vector2i()
+	while (true):
+		coords = Vector2i(randi_range(0, map_width - 1), randi_range(0, map_height - 1))
+		if no_obstacles(coords):
+			break
+	
+	playerTiles.clear();
+	playerTiles.set_cell(coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
+	player_coords = coords;
+	return to_global(playerTiles.map_to_local(player_coords))
 	
 func change_shadow_direction():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
@@ -61,7 +72,7 @@ func change_shadow_direction():
 func place_items(item_tile_id: int, count, only_in_shades: bool = false):
 	var offset_x = randi_range(0, map_width)
 	var offset_y = randi_range(0, map_height)
-	itemsTiles.clear()
+
 	for x in range(map_width):
 		for y in range(map_height):
 			var coords = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
@@ -112,6 +123,7 @@ func _generate_map():
 	self.obstacleTiles.clear();
 	self.shadowsTiles.clear();
 	
+	
 	_generate_unbreakables()
 	_generate_breakables()
 	_generate_background()
@@ -129,17 +141,6 @@ func move_player(relative_coords: Vector2i) -> PlayerMoveResult:
 	result.item_tile_id = itemsTiles.get_cell_source_id(new_player_coords)
 	result.global_position = to_global(playerTiles.map_to_local(new_player_coords))
 	return result;
-
-func _place_player():
-	var coords = Vector2i()
-	while (true):
-		coords = Vector2i(randi_range(0, map_width - 1), randi_range(0, map_height - 1))
-		if no_obstacles(coords):
-			break
-	
-	playerTiles.clear();
-	playerTiles.set_cell(coords, PLAYER_TILE_ID, Vector2i(0, 0), 0)
-	player_coords = coords;
 
 func in_shade(coords: Vector2i): 
 	var cell_tile_id = shadowsTiles.get_cell_source_id(coords)
@@ -169,7 +170,7 @@ func _generate_unbreakables():
 	# Generate unbreakable walls at the borders on Layer 2
 	if not obstacleTiles:
 		return
-	obstacleTiles.clear()
+		
 	for x in range(map_width):
 		for y in range(map_height):
 			if x == 0 or x == map_width - 1 or y == 0 or y == map_height - 1:
@@ -222,7 +223,6 @@ func _generate_breakables():
 
 func _generate_background():
 	#--------------------------------- BACKGROUND ------------------------------
-	groundTiles.clear()
 	for x in range(map_width):
 		for y in range(map_height):
 			var cell_coords = Vector2i(x, y + map_offset)
@@ -294,9 +294,11 @@ func _carry_items_in_shadows(from_shadow_direction: Direction):
 			
 func _carry_blocks_in_shadows(from_shadow_direction: Direction):
 	const carried_coords = [];
+	var offset_x = randi_range(0, map_width)
+	var offset_y = randi_range(0, map_height)
 	for x in range(map_width):
 		for y in range(map_height):
-			var cell_coord = Vector2i(x, y);
+			var cell_coord = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
 			var obstacle_tile_id = obstacleTiles.get_cell_source_id(cell_coord)
 			if obstacle_tile_id != BREAKABLE_TILE_ID:
 				continue
