@@ -2,14 +2,17 @@ class_name PickupAnimations
 
 extends Node2D
 
+var drop_sprite: Sprite2D;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	drop_sprite = Sprite2D.new()
+	drop_sprite.texture = preload("res://assets/textures/game-icons_net/drop.svg")  # Replace with your texture
+	drop_sprite.scale = Vector2(0.15, 0.15);
+	drop_sprite.position = Vector2(0, -84.0)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func show_drop_sprite():
+	spawn_pickup_sprite(drop_sprite.duplicate())
 
 func spawn_pickup_sprite(sprite: Sprite2D):
 	add_child(sprite)
@@ -24,4 +27,4 @@ func spawn_pickup_sprite(sprite: Sprite2D):
 	tween.tween_property(sprite, "modulate:a", 0.0, 1.0)  # Fade out over 1 second
 
 	# Connect completion signal to free the sprite
-	tween.connect("finished", sprite.queue_free)
+	tween.connect("finished", sprite.queue_free)	

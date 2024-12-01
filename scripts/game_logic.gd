@@ -81,14 +81,10 @@ func drink():
 	var emount = 100 - hydration_bar.value
 	hydration_bar.value = hydration_bar.max_value
 	blader_bar.value += emount*BLADDER_RATIO
-	SoundManager.play_sound(SFX,SoundManager.SFX_DINK)
+	SoundManager.play_sound(SFX, SoundManager.SFX_DINK)
 	# TODO add blader by day progression
 	
-	var sprite = Sprite2D.new()
-	sprite.texture = preload("res://assets/textures/game-icons_net/drop.svg")  # Replace with your texture
-	sprite.scale = Vector2(0.15, 0.15);
-	sprite.position = Vector2(0, -84.0)
-	pickup_animations.spawn_pickup_sprite(sprite)
+	pickup_animations.show_drop_sprite()
 	
 #func balance_liquids():
 

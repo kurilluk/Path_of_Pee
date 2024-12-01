@@ -1,21 +1,26 @@
 extends Node
 
-const SFX_DINK = "drink"
+const SFX_DRINKING_BOTTLE_1 = preload("res://assets/sounds/sfx/SFX_DrinkingBottle1.wav")
+const SFX_DRINKING_CAN_1 = preload("res://assets/sounds/sfx/SFX_DrinkingCan1.wav")
+const SFX_VOC_ICANTHOLDDITLONGER = preload("res://assets/sounds/sfx/SFX_VOC_Icantholdditlonger.wav")
+const SFX_VOC_INEEDTOPEE_1 = preload("res://assets/sounds/sfx/SFX_VOC_Ineedtopee1.wav")
+const SFX_WALL_CHANGE_1 = preload("res://assets/sounds/sfx/SFx_WallChange1.wav")
+const UI_BUTTON_CLICK_1 = preload("res://assets/sounds/sfx/UI_ButtonClick1.wav")
+const UI_BUTTON_HOOVER = preload("res://assets/sounds/sfx/UI_ButtonHoover.wav")
+const UI_CLICK_1 = preload("res://assets/sounds/sfx/UI_Click1.mp3")
+const UI_GAME_OVER = preload("res://assets/sounds/sfx/UI_GameOver.wav")
+const UI_START_GAME = preload("res://assets/sounds/sfx/UI_StartGame.wav")
 
-const SOUNDS = {
-	SFX_DINK: preload("res://assets/sounds/sfx/SFX_DrinkingBottle1.wav")
-}
+func play_sound(soundPlayer: AudioStreamPlayer, stream: AudioStream) -> void:
+	assert(stream != null, "stream shouldn't be null")
+	assert(soundPlayer != null, "soundPlayer shouldn't be null")
+	
+	soundPlayer.stop()
+	soundPlayer.stream = stream
+	soundPlayer.play()
 
-func play_sound(player: AudioStreamPlayer, key: String) -> void:
-	if SOUNDS.has(key) == false:
-		return
-	player.stop()
-	player.stream = SOUNDS[key]
-	player.play()
-
-func play_dink_sound(player: AudioStreamPlayer) -> void:
-	play_sound(player,SFX_DINK)
-
+func play_dink_sound(soundPlayer: AudioStreamPlayer) -> void:
+	play_sound(soundPlayer, SFX_DRINKING_BOTTLE_1)
 
 #const AMBIENT_LOOP = [
 	#preload("res://assets/sounds/ambient/loop/01_Amajor9_LOOP_seamless_MIXED.ogg"),
