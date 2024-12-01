@@ -25,7 +25,6 @@ anchor_mode = 0
 enabled = false
 
 [node name="Map" parent="." instance=ExtResource("2_6sbis")]
-position = Vector2(128, 128)
 
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true
