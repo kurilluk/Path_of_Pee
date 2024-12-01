@@ -20,8 +20,7 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	map.generateMap(11, 11)
-	map.place_items(15,5)
+	pass
 
 func _input(event: InputEvent) -> void:
 	# Reset the direction
@@ -84,7 +83,12 @@ func progress_day():
 		day_part = 0
 		map.change_shadow_direction() 
 
+func generate_level_map(level: int = 1) -> Vector2:
+	map.generateMap(11, 11)
+	map.place_items(15,5)
+	return Vector2.ZERO
 
 func _on_Start_button_pressed() -> void:
-	hero.move_hero(Vector2.ZERO,1)
+	var new_position = generate_level_map()
+	hero.move_hero(new_position,1)
 	start_button.visible = false
