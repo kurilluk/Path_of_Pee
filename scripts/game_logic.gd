@@ -7,6 +7,8 @@ extends Node2D
 @onready var hydration_bar: ProgressBar = %HydrationBar
 @onready var blader_bar: ProgressBar = %BladerBar
 @onready var start_button: Button = %StartButton
+@onready var pickup_animations: PickupAnimations = $Hero/PickupAnimations
+
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
@@ -70,6 +72,13 @@ func drink():
 	hydration_bar.value = hydration_bar.max_value
 	blader_bar.value += emount*BLADDER_RATIO
 	# TODO add blader by day progression
+	
+	var sprite = Sprite2D.new()
+	sprite.texture = preload("res://assets/textures/game-icons_net/drop.svg")  # Replace with your texture
+	sprite.scale = Vector2(0.15, 0.15);
+	sprite.position = Vector2(0, -84.0)
+	pickup_animations.spawn_pickup_sprite(sprite)
+	
 #func balance_liquids():
 
 func spend_liquids():

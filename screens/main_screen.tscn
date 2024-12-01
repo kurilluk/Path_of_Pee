@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=9 format=3 uid="uid://yecbj7sxsmhv"]
 
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
 [ext_resource type="PackedScene" uid="uid://tn7tnsad5fvd" path="res://_tests/denis/GameMap.tscn" id="2_6sbis"]
+[ext_resource type="Script" path="res://scripts/pickup_animations.gd" id="4_i4ans"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8a47"]
 bg_color = Color(0.254902, 0.572549, 0.788235, 1)
@@ -30,6 +31,9 @@ position = Vector2(128, 128)
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true
 position = Vector2(-1435, 0)
+
+[node name="PickupAnimations" type="Node2D" parent="Hero"]
+script = ExtResource("4_i4ans")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
