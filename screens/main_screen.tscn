@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=13 format=3 uid="uid://yecbj7sxsmhv"]
 
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
 [ext_resource type="PackedScene" uid="uid://tn7tnsad5fvd" path="res://_tests/denis/GameMap.tscn" id="2_6sbis"]
 [ext_resource type="Script" path="res://scripts/pickup_animations.gd" id="4_i4ans"]
 [ext_resource type="Script" path="res://scripts/bladder_bar.gd" id="5_ptx6u"]
+[ext_resource type="Texture2D" uid="uid://c617l6xa8b5x1" path="res://assets/textures/kurilluk/drink_blue.svg" id="5_rxqlc"]
+[ext_resource type="Texture2D" uid="uid://c7yrusv3oqi2a" path="res://assets/textures/kurilluk/blodder_blue.svg" id="6_x88ql"]
+[ext_resource type="Texture2D" uid="uid://staenxw6vrib" path="res://assets/textures/kurilluk/glass.svg" id="8_tsu26"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8a47"]
 bg_color = Color(0.254902, 0.572549, 0.788235, 1)
@@ -57,6 +60,10 @@ theme_override_constants/separation = 12
 [node name="Hydration" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
+layout_mode = 2
+texture = ExtResource("5_rxqlc")
+
 [node name="HydrationLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Hydration"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
@@ -72,6 +79,10 @@ value = 50.0
 
 [node name="Blader" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Blader"]
+layout_mode = 2
+texture = ExtResource("6_x88ql")
 
 [node name="BladerLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Blader"]
 custom_minimum_size = Vector2(96, 0)
@@ -96,6 +107,34 @@ text = "Move Effort"
 
 [node name="MoveEffortBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/MoveEffort"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+max_value = 1.0
+step = 1.0
+value = 1.0
+
+[node name="Score" type="HBoxContainer" parent="GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/VBoxContainer/Score"]
+layout_mode = 2
+texture = ExtResource("8_tsu26")
+
+[node name="ScoreLabel" type="Label" parent="GUI/MarginContainer/VBoxContainer/Score"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Move Effort"
+
+[node name="ScoreValue" type="Label" parent="GUI/MarginContainer/VBoxContainer/Score"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "5000"
+horizontal_alignment = 2
+
+[node name="MoveEffortBar" type="ProgressBar" parent="GUI/MarginContainer/VBoxContainer/Score"]
+visible = false
 custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
 max_value = 1.0
