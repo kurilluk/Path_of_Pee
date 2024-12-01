@@ -10,6 +10,7 @@ extends Node2D
 @onready var pickup_animations: PickupAnimations = $Hero/PickupAnimations
 @onready var SFX: AudioStreamPlayer = $SFX
 @onready var Music: AudioStreamPlayer = $Music
+@onready var Overvoise: AudioStreamPlayer = $Overvoise
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
@@ -141,9 +142,9 @@ func _on_Start_button_pressed() -> void:
 
 func play_music(value: float):
 	if value > 80:
-		SoundManager.transit_ambient_to_phase3();
+		SoundManager.transit_ambient_to_phase3(Overvoise);
 	elif value > 40:
-		SoundManager.transit_ambient_to_phase2();
+		SoundManager.transit_ambient_to_phase2(Overvoise);
 
 func _on_bladder_bar_value_changed(value: float) -> void:
 	play_music(value)

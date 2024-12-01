@@ -64,20 +64,21 @@ func start_ambient_loop(musicPlayer: AudioStreamPlayer):
 	_ambient_loop_number = 1;
 	next_ambient_phase();
 
-func transit_ambient_to_phase2():
+func transit_ambient_to_phase2(voPlayer: AudioStreamPlayer):
 	if _ambient_loop_number == 2:
 		return
 		
 	_ambient_loop_number = 2;
-	_ambient_player.stream = SFX_VOC_INEEDTOPEE_1
-	_ambient_player.play()
+	next_ambient_phase()
+	play_sound(voPlayer, SFX_VOC_INEEDTOPEE_1)
 	
-func transit_ambient_to_phase3():
+func transit_ambient_to_phase3(voPlayer: AudioStreamPlayer):
 	if _ambient_loop_number == 3:
 		return
+
 	_ambient_loop_number = 3;
-	_ambient_player.stream = SFX_VOC_ICANTHOLDDITLONGER
-	_ambient_player.play()
+	next_ambient_phase()
+	play_sound(voPlayer, SFX_VOC_ICANTHOLDDITLONGER)
 
 func set_ambient_to_phase1():
 	_ambient_loop_number = 1;
