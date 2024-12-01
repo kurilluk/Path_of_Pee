@@ -96,6 +96,7 @@ func check_for_items(item_tile_id: int, item_coords: Vector2i):
 			map.remove_item(item_coords)
 		20: # teleport/toilet
 			blader_bar.set_value_no_signal(0.0)
+			SoundManager.set_ambient_to_phase1();
 			SoundManager.play_sound(flush, SoundManager.FLUSH_SOUND)
 			next_level()
 		22: # fountain
