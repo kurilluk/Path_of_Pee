@@ -9,7 +9,7 @@ const UI_BUTTON_HOOVER = preload("res://assets/sounds/sfx/UI_ButtonHoover.wav")
 const UI_CLICK_1 = preload("res://assets/sounds/sfx/UI_Click1.mp3")
 const UI_GAME_OVER = preload("res://assets/sounds/sfx/UI_GameOver.wav")
 const UI_START_GAME = preload("res://assets/sounds/sfx/UI_StartGame.wav")
-const SFX_WATER_DRIP = preload("res://assets/sounds/sfx/SFX_WaterDrip.ogg")
+const SFX_FONTAIN = preload("res://assets/sounds/sfx/SFX_Fontain.wav")
 
 const FOLLEY_STEP_1 = preload("res://assets/sounds/sfx/Folley_Step1.mp3")
 const FOLLEY_STEP_2 = preload("res://assets/sounds/sfx/Folley_Step2.mp3")

@@ -101,7 +101,7 @@ func check_for_items(item_tile_id: int, item_coords: Vector2i):
 			next_level()
 		22: # fountain
 			blader_bar.add_liquid(10)
-			SoundManager.play_sound(SFX, SoundManager.SFX_WATER_DRIP)
+			SoundManager.play_sound(SFX, SoundManager.SFX_FONTAIN)
 
 #func call_maze_hero(vector :Vector2):
 	#map.move_player(vector)
@@ -123,9 +123,13 @@ func progress_day():
 	day_part += 1
 	day_part_bar.set_value_no_signal(day_part)
 	spend_liquids()
+	var walls_are_moving = false;
 	if day_part >= day_part_bar.max_value:
 		day_part = 0
-		map.change_shadow_direction() 
+		walls_are_moving = map.change_shadow_direction()
+	
+	if walls_are_moving:
+		SoundManager.play_sound(SFX, SoundManager.SFX_WALL_CHANGE_1)
 
 func generate_level_map(level: int = 1) -> Vector2:
 	#match level:

@@ -62,15 +62,16 @@ func place_player() -> Vector2:
 	player_coords = coords;
 	return to_global(playerTiles.map_to_local(player_coords))
 	
-func change_shadow_direction():
+func change_shadow_direction() -> bool:
 	var directions: Array = Direction.values()
 
 	var old_shadow_orientation = self.shadow_orientation
 	shadow_orientation = (shadow_orientation + 1) % len(directions)
 	
 	#_carry_items_in_shadows(directions[old_shadow_orientation])
-	_carry_blocks_in_shadows(block_move_chance, directions[old_shadow_orientation])
+	var walls_are_moving = _carry_blocks_in_shadows(block_move_chance, directions[old_shadow_orientation])
 	_cast_shadows(directions[shadow_orientation])
+	return walls_are_moving;
 
 func place_items(item_tile_id: int, count, only_in_shades: bool = false):
 	var offset_x = randi_range(0, map_width)
@@ -277,10 +278,11 @@ func _carry_items_in_shadows(from_shadow_direction: Direction):
 			itemsTiles.set_cell(target_coord, item_tile_id, Vector2i(0, 0), 0)
 			carried_coords.push_back(target_coord)
 			
-func _carry_blocks_in_shadows(move_chance: float, from_shadow_direction: Direction):
+func _carry_blocks_in_shadows(move_chance: float, from_shadow_direction: Direction) -> bool:
 	var carried_coords = [];
 	var offset_x = randi_range(0, map_width)
 	var offset_y = randi_range(0, map_height)
+	var walls_are_moving = false;
 	for x in range(map_width):
 		for y in range(map_height):
 			var cell_coord = Vector2i((x + offset_x) % map_width, (y + offset_y) % map_height)
@@ -305,7 +307,8 @@ func _carry_blocks_in_shadows(move_chance: float, from_shadow_direction: Directi
 			var target_coord_str = str(target_coord.x) + ":" + str(target_coord.y)
 			carried_coords.push_back(target_coord_str)
 			
-#			print("moved from x:" + str(cell_coord.x) + " y: " + str(cell_coord.y) + " to x:" + str(target_coord.x) + " to y:" + str(target_coord.y) + " Direction " + str(from_shadow_direction))
+			walls_are_moving = true;
+	return walls_are_moving;
 
 func _get_shadow_move_target_cell(shadow_direction: Direction) -> Vector2i:
 	match shadow_direction:
