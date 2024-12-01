@@ -19,7 +19,7 @@ var map_offset = 0 #Shifts map four rows down for UI
 var rng = RandomNumberGenerator.new()
 var player_coords: Vector2i;
 
-const block_move_chance = 0.1; # 10%
+const block_move_chance = 0.8; # 10%
 
 # Tilemap constants
 const BACKGROUND_TILE_ID = 0
