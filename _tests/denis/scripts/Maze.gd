@@ -19,7 +19,7 @@ var map_offset = 0 #Shifts map four rows down for UI
 var rng = RandomNumberGenerator.new()
 var player_coords: Vector2i;
 
-const block_move_chance = 0.8; # 10%
+var block_move_chance = 0.8;
 
 # Tilemap constants
 const BACKGROUND_TILE_ID = 0
@@ -36,12 +36,13 @@ enum Direction { N, NE, E, SE, S, SW, W, NW }
 func _ready():
 	pass
 	
-func generate_map(width: int, height: int):
+func generate_map(width: int, height: int, block_move_chance = 0.8):
 	if (width % 2 != 1):
 		width += 1;
 	if (height % 2 != 1):
 		height += 1;
 		
+	self.block_move_chance = block_move_chance;
 	self.map_width = width;
 	self.map_height = height;	
 	self.shadow_orientation = 0;
