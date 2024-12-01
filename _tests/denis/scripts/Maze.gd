@@ -9,21 +9,9 @@ extends Node2D
 @onready var shadowsTiles: TileMapLayer = $ShadowTiles
 @onready var playerTiles: TileMapLayer = $PlayerTiles
 
-
 # Randomizer & Dimension values ( make sure width & height is uneven)
-@export var initial_width = 11 
-	#set(value):
-		#initial_width = value
-		#_generate_map()
-		#change_shadow_direction()
-		#_place_player()
-		
-@export var initial_height = 11
-	#set(value):
-		#initial_height = value
-		#_generate_map()
-		#change_shadow_direction()
-		#_place_player()
+const initial_width = 11 
+const initial_height = 11
 		
 var map_width = initial_width
 var map_height = initial_height 
@@ -44,10 +32,21 @@ var shadow_orientation = 0
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
 func _ready():
+	pass
+	
+func generateMap(width: int, height: int):
+	if (width % 2 != 1):
+		width += 1;
+	if (height % 2 != 1):
+		height += 1;
+		
+	self.map_width = width;
+	self.map_height = height;	
+	self.shadow_orientation = 0;
+	
 	_generate_map()
 	change_shadow_direction()
 	_place_player()
-	place_items(15, 10)
 	
 func change_shadow_direction():
 	var directions: Array = [Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, Direction.NW]
@@ -107,6 +106,12 @@ func remove_item(coords: Vector2i):
 			
 # ---------------- Map Generation -------------------------------------
 func _generate_map():
+	self.itemsTiles.clear();
+	self.groundTiles.clear();
+	self.playerTiles.clear();
+	self.obstacleTiles.clear();
+	self.shadowsTiles.clear();
+	
 	_generate_unbreakables()
 	_generate_breakables()
 	_generate_background()

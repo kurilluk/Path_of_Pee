@@ -19,6 +19,7 @@ const  speed: float = 64.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	map.generateMap(11, 11)
 	map.place_items(15,5)
 
 func _input(event: InputEvent) -> void:
