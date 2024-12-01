@@ -1,5 +1,6 @@
 #class_name Hero
 extends Node2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 #var tween : Tween
 
@@ -7,7 +8,9 @@ func _ready() -> void:
 	pass
 	#tween = get_tree().create_tween()
 
-func move_hero(new_position : Vector2):
+func move_hero(new_position : Vector2, time : float = 0.2):
 	#print(new_position)
 	var 	tween = get_tree().create_tween()
-	tween.tween_property(self,"position",new_position,0.2)
+	animated_sprite.play("default")
+	tween.tween_property(self,"position",new_position,time)
+	#animated_sprite.stop()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://yecbj7sxsmhv"]
+[gd_scene load_steps=8 format=3 uid="uid://yecbj7sxsmhv"]
 
 [ext_resource type="PackedScene" uid="uid://dxhgc37amr6ku" path="res://objects/hero/hero.tscn" id="1_au7jh"]
 [ext_resource type="Script" path="res://scripts/game_logic.gd" id="1_rnh5h"]
@@ -10,17 +10,26 @@ bg_color = Color(0.254902, 0.572549, 0.788235, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te35g"]
 bg_color = Color(0.788235, 0.72549, 0.254902, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2iry"]
+bg_color = Color(0.388235, 0.172549, 0.313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8vhh"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="MainScreen" type="Node2D"]
 script = ExtResource("1_rnh5h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 anchor_mode = 0
+enabled = false
 
 [node name="Map" parent="." instance=ExtResource("2_6sbis")]
 position = Vector2(128, 128)
 
 [node name="Hero" parent="." instance=ExtResource("1_au7jh")]
 unique_name_in_owner = true
+position = Vector2(-1435, 0)
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -102,3 +111,14 @@ custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
 max_value = 4.0
 step = 1.0
+
+[node name="StartButton" type="Button" parent="GUI/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_styles/hover = SubResource("StyleBoxFlat_a2iry")
+theme_override_styles/normal = SubResource("StyleBoxFlat_s8vhh")
+text = "START >"
+
+[connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/StartButton" to="." method="_on_Start_button_pressed"]

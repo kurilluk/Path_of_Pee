@@ -1,10 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxhgc37amr6ku"]
+[gd_scene load_steps=9 format=3 uid="uid://dxhgc37amr6ku"]
 
-[ext_resource type="Texture2D" uid="uid://g8bjdc2iw0kh" path="res://assets/textures/kurilluk/meeple.svg" id="1_m324u"]
 [ext_resource type="Script" path="res://objects/hero/hero.gd" id="1_o1jct"]
+[ext_resource type="Texture2D" uid="uid://cbmhp1q0lptcd" path="res://assets/textures/kurilluk/meeple.png" id="2_55uby"]
+[ext_resource type="Texture2D" uid="uid://bcom6c8mxcyxp" path="res://assets/textures/kurilluk/meeple_sprite.png" id="3_3kr8c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbyr6"]
 radius = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fujl"]
+atlas = ExtResource("3_3kr8c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfj3q"]
+atlas = ExtResource("3_3kr8c")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxv5s"]
+atlas = ExtResource("3_3kr8c")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4c6w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fujl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfj3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fujl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxv5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fujl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 25.0
+}]
 
 [node name="Hero" type="Node2D"]
 script = ExtResource("1_o1jct")
@@ -16,7 +52,12 @@ visible = false
 shape = SubResource("CircleShape2D_pbyr6")
 
 [node name="Meeple" type="Sprite2D" parent="."]
-texture = ExtResource("1_m324u")
+texture = ExtResource("2_55uby")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_p4c6w")
+frame = 3
+frame_progress = 1.0

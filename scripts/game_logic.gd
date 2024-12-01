@@ -6,6 +6,7 @@ extends Node2D
 @onready var day_part_bar: ProgressBar = %DayPartBar
 @onready var hydration_bar: ProgressBar = %HydrationBar
 @onready var blader_bar: ProgressBar = %BladerBar
+@onready var start_button: Button = %StartButton
 
 var last_direction = Vector2.ZERO
 var effort : int = 0
@@ -82,3 +83,8 @@ func progress_day():
 	if day_part >= day_part_bar.max_value:
 		day_part = 0
 		map.change_shadow_direction() 
+
+
+func _on_Start_button_pressed() -> void:
+	hero.move_hero(Vector2.ZERO,1)
+	start_button.visible = false

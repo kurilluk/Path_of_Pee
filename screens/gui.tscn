@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck8nwfsvuo3v1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8a47"]
+bg_color = Color(0.254902, 0.572549, 0.788235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te35g"]
+bg_color = Color(0.788235, 0.72549, 0.254902, 1)
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 12
+
+[node name="Hydration" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HydrationLabel" type="Label" parent="MarginContainer/VBoxContainer/Hydration"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Hydration"
+
+[node name="HydrationBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/Hydration"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_x8a47")
+step = 1.0
+value = 50.0
+
+[node name="Blader" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BladerLabel" type="Label" parent="MarginContainer/VBoxContainer/Blader"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Bladder"
+
+[node name="BladerBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/Blader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_te35g")
+step = 1.0
+
+[node name="MoveEffort" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MoveEffortLabel" type="Label" parent="MarginContainer/VBoxContainer/MoveEffort"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Move Effort"
+
+[node name="MoveEffortBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MoveEffort"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+max_value = 1.0
+step = 1.0
+value = 1.0
+
+[node name="DayPart" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DayPartLabel" type="Label" parent="MarginContainer/VBoxContainer/DayPart"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Day Part"
+
+[node name="DayPartBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/DayPart"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+max_value = 4.0
+step = 1.0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 10
+text = "START >"
