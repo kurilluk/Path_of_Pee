@@ -148,8 +148,7 @@ func _generate_map():
 	self.playerTiles.clear();
 	self.obstacleTiles.clear();
 	self.shadowsTiles.clear();
-	
-	
+		
 	_generate_unbreakables()
 	_generate_background()
 
@@ -218,7 +217,7 @@ func _generate_background():
 func _cast_shadows(shadow_direction: Direction):
 	shadowsTiles.clear();
 	
-	var yRange = range(map_height - 1, -1, -1) if (shadow_direction == Direction.S || shadow_direction == Direction.SE  || shadow_direction == Direction.SW) else range(map_height)
+	var yRange = range(map_height) if (shadow_direction == Direction.S || shadow_direction == Direction.SE  || shadow_direction == Direction.SW) else range(map_height - 1, -1, -1)
 	var xRange = range(map_width - 1, -1, -1) if (shadow_direction == Direction.W || shadow_direction == Direction.SW || shadow_direction == Direction.NW) else range(map_width);
 	for y in yRange:
 		for x in xRange:
