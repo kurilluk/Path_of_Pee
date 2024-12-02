@@ -13,8 +13,8 @@ config_version=5
 config/name="Path_of_Pee"
 run/main_scene="res://screens/main_screen.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/show_image=false
+boot_splash/bg_color=Color(0.0784314, 0.0823529, 0.168627, 1)
+boot_splash/image="res://_misc/splash_screen.png"
 config/icon="res://assets/textures/game-icons_net/spill.svg"
 
 [autoload]

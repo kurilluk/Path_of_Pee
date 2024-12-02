@@ -103,7 +103,7 @@ func check_for_items(item_tile_id: int, item_coords: Vector2i):
 			next_level()
 		22: # fountain
 			blader_bar.add_liquid(10)
-			SoundManager.play_sound(SFX, SoundManager.SFX_FONTAIN)
+			SoundManager.play_sound(Overvoice, SoundManager.SFX_FONTAIN)
 
 #func call_maze_hero(vector :Vector2):
 	#map.move_player(vector)

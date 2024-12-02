@@ -3,11 +3,11 @@ extends Node
 const SFX_DRINKING_BOTTLE_1 = preload("res://assets/sounds/sfx/SFX_DrinkingBottle1.wav")
 const SFX_DRINKING_CAN_1 = preload("res://assets/sounds/sfx/SFX_DrinkingCan1.wav")
 const SFX_WALL_CHANGE_1 = preload("res://assets/sounds/sfx/SFx_WallChange1.wav")
-const FLUSH_SOUND = preload("res://assets/sounds/sfx/Flush_Sound.ogg")
+const FLUSH_SOUND = preload("res://assets/sounds/sfx/SFX_WCwinlvl.mp3") #"res://assets/sounds/sfx/Flush_Sound.ogg")
 const UI_BUTTON_CLICK_1 = preload("res://assets/sounds/sfx/UI_ButtonClick1.wav")
 const UI_BUTTON_HOOVER = preload("res://assets/sounds/sfx/UI_ButtonHoover.wav")
 const UI_CLICK_1 = preload("res://assets/sounds/sfx/UI_Click1.mp3")
-const UI_GAME_OVER = preload("res://assets/sounds/sfx/UI_GameOver.wav")
+const UI_GAME_OVER = preload("res://assets/sounds/sfx/UI_GameOver2.wav")
 const UI_START_GAME = preload("res://assets/sounds/sfx/UI_StartGame.wav")
 const SFX_FONTAIN = preload("res://assets/sounds/sfx/SFX_Fontain.wav")
 
